@@ -8,7 +8,7 @@
 #define PI 3.14159265
 #define BUFFER_SIZE 100000
 
-int NumPoints = //3+
+const int NumPoints = //3+
 6+15;
 
 
