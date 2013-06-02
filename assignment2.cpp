@@ -4,10 +4,12 @@
 #include "include/Angel.h"
 #include <math.h>
 
-vec2 vertices[NumPoints];
+
 
 const int NumPoints = //3+
 6+15;
+
+vec2 vertices[NumPoints];
 
 #define PI 3.14159265
 
