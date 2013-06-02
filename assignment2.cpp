@@ -32,7 +32,7 @@ A,B,C
     };
 	
 	for(int i=0 ;i<3;i++){
-		vertices[index+i]=temp[i]
+		vertices[index+i]=temp[i];
 	}
 	index=index+2;
 	NumPoints=NumPoints+3;
