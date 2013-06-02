@@ -21,22 +21,24 @@ float scale=.51;
 
 	    // Specifiy the vertices for a triangle
 vec2 vertices[BUFFER_SIZE] ;
-
+vec2 * p =vertices;
 void load_data(void);
 void load_triangle(vec2 A, vec2 B, vec2 C);
 
 void load_triangle(vec2 A, vec2 B, vec2 C){
-	int np=3;
+
 	vec2 temp[3]= {
 A,B,C
         
 
     };
-
-	for(int i = NumPoints ;i<np;i++){
-		vertices[i]=temp[i];
+	
+	for(int i=0 ;i<3;i++){
+		p*=temp[i];
+		p++;
 	}
-	NumPoints=NumPoints+np;
+	NumPoints=NumPoints+3;
+	
 }
 
 
