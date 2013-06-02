@@ -68,7 +68,7 @@ vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),vec2(scale*(sin(4*PI/5)+x_offest
 vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),vec2(scale*(0.0+x_offest),scale*(1.0+y_offest)),vec2(scale*(sin(2*PI/5)+x_offest),scale*(cos(2*PI/5)+y_offest))
     };
 
-	for(int i = NumPoints ;i<np;i++){
+	for(int i = NumPoints+1 ;i<np;i++){
 		vertices[i]=temp[i];
 	}
 	NumPoints=NumPoints+np;
