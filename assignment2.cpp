@@ -21,7 +21,7 @@ float scale=.51;
 
 
 	    // Specifiy the vertices for a triangle
-vec2 vertices[NumPoints] ;
+vec2 vertices[BUFFER_SIZE] ;
 
 void load_data(void){
 	vec2 temp[NumPoints]= {
