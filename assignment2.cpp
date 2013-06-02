@@ -22,6 +22,7 @@ float scale=.51;
 	    // Specifiy the vertices for a triangle
 vec2 vertices[BUFFER_SIZE] ;
 int index = 0;
+int NumPoints = 0;
 void load_data(void);
 void load_triangle(vec2 A, vec2 B, vec2 C);
 
@@ -79,7 +80,7 @@ vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),vec2(scale*(0.0+x_offest),scale*
 void
 init( void )
 {
-	int NumPoints = 0;
+	
 	load_triangle(vec2( 0.0, 0.0 ), vec2( -1.0, 0.0 ), vec2( 0.0, -1.0 ));
 	load_triangle(vec2(0.0,0.0),vec2(1.0,0.0),vec2(0.0,1.0));
 	load_data();
