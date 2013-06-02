@@ -26,9 +26,9 @@ vec2 vertices[BUFFER_SIZE] ;
 void load_data(void);
 
 void load_data(void){
-	int np=21;
 
-	vec2 temp[np]= {
+	int np=21;
+	vec2 temp[21]= {
 
        // vec2( 0.0, 0.0 ), vec2( -1.0, 0.0 ), vec2( 0.0, -1.0 ),
 
