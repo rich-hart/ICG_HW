@@ -27,7 +27,7 @@ vec2 shape_buffer[SHAPE_BUFFER_SIZE];
 int index = 0;
 
 
-
+//test
 void load_data(void);
 void load_triangle(vec2 A, vec2 B, vec2 C);
 
