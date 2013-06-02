@@ -4,7 +4,8 @@
 #include "include/Angel.h"
 #include <math.h>
 
-const int NumPoints = 3+6+15;
+const int NumPoints = //3+
+6+15;
 
 #define PI 3.14159265
 
@@ -18,7 +19,7 @@ init( void )
     // Specifiy the vertices for a triangle
     vec2 vertices[NumPoints] = {
 
-        vec2( 0.0, 0.0 ), vec2( -1.0, 0.0 ), vec2( 0.0, -1.0 ),
+       // vec2( 0.0, 0.0 ), vec2( -1.0, 0.0 ), vec2( 0.0, -1.0 ),
 
 	vec2(0.0,0.0),vec2(1.0,0.0),vec2(0.0,1.0),
 
