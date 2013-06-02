@@ -18,17 +18,20 @@
 
 	    // Specifiy the vertices for a triangle
 vec2 vertices[BUFFER_SIZE] ;
+vec2 *ver_pointer;
 int NumPoints = 0;
 
 
 #define PI 3.14159265
 #define SHAPE_BUFFER_SIZE 100000
 vec2 shape_buffer[SHAPE_BUFFER_SIZE];
+vec2 *shape_pointer;
+
 int index = 0;
 
 
 //test
-void load_data(void);
+void load_data(vec2 *ver_pointer,vec2 *shape_pointer);
 void load_triangle(vec2 A, vec2 B, vec2 C);
 
 void load_triangle(vec2 A, vec2 B, vec2 C){
@@ -45,7 +48,7 @@ A,B,C
 	
 }
 
-void load_data(void){
+void load_data(vec2 *ver_pointer,vec2 *shape_pointer){
 	float x_offest=1.0;
 	float y_offest=-1.0;
 	float scale=.51;
@@ -84,7 +87,10 @@ vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),vec2(scale*(0.0+x_offest),scale*
 	NumPoints=index;
 	
 	for(int i=0;i<NumPoints;i++){
-		vertices[i]=shape_buffer[i];
+	//	vertices[i]=shape_buffer[i];
+		*ver_pointer= *shape_pointer;
+		ver_pointer++;
+		shape_pointer++;
 	}
 }
 
