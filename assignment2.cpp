@@ -4,6 +4,8 @@
 #include "include/Angel.h"
 #include <math.h>
 
+vec2 vertices[NumPoints];
+
 const int NumPoints = //3+
 6+15;
 
@@ -17,7 +19,7 @@ void
 init( void )
 {
     // Specifiy the vertices for a triangle
-    vec2 vertices[NumPoints] = {
+    vertices[NumPoints] = {
 
        // vec2( 0.0, 0.0 ), vec2( -1.0, 0.0 ), vec2( 0.0, -1.0 ),
 
