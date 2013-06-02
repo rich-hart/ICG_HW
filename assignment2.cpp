@@ -100,7 +100,7 @@ init( void )
 	
 	load_triangle(vec2( 0.0, 0.0 ), vec2( -1.0, 0.0 ), vec2( 0.0, -1.0 ));
 	load_triangle(vec2(0.0,0.0),vec2(1.0,0.0),vec2(0.0,1.0));
-	load_data();
+	load_data(ver_pointer,shape_pointer);
 
 
 	
