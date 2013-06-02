@@ -9,7 +9,7 @@
 const int NumPoints = //3+
 6+15;
 
-vec2 vertices[NumPoints];
+
 
 #define PI 3.14159265
 
@@ -21,7 +21,9 @@ void
 init( void )
 {
     // Specifiy the vertices for a triangle
-	vec2 * p=vertices;
+    vec2 vertices[NumPoints];
+	vec2 * p;
+	p=vertices;
     p* = {
 
        // vec2( 0.0, 0.0 ), vec2( -1.0, 0.0 ), vec2( 0.0, -1.0 ),
