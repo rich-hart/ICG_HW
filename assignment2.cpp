@@ -23,13 +23,13 @@ float scale=.51;
 vec2 vertices[BUFFER_SIZE] ;
 
 void load_data(void);
-void load_triangle(void);
+void load_triangle(vec2 A, vec2 B, vec2 C);
 
-void load_triangle(void){
+void load_triangle(vec2 A, vec2 B, vec2 C){
 	int np=3;
 	vec2 temp[3]= {
-
-        vec2( 0.0, 0.0 ), vec2( -1.0, 0.0 ), vec2( 0.0, -1.0 )
+A,B,C
+        
 
     };
 
@@ -77,7 +77,7 @@ vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),vec2(scale*(0.0+x_offest),scale*
 void
 init( void )
 {
-	load_triangle();
+	load_triangle(vec2( 0.0, 0.0 ), vec2( -1.0, 0.0 ), vec2( 0.0, -1.0 ));
 	load_data();
 
     // Create a vertex array object
