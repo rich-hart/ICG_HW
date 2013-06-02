@@ -85,7 +85,7 @@ vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),vec2(scale*(0.0+x_offest),scale*
 	NumPoints=NumPoints+np;
 	*/
 	NumPoints=index;
-	
+	shape_pointer=shape_buffer;
 	for(int i=0;i<NumPoints;i++){
 	//	vertices[i]=shape_buffer[i];
 		*ver_pointer= *shape_pointer;
@@ -97,6 +97,7 @@ vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),vec2(scale*(0.0+x_offest),scale*
 void
 init( void )
 {
+	ver_pointer=vertices;
 	
 	load_triangle(vec2( 0.0, 0.0 ), vec2( -1.0, 0.0 ), vec2( 0.0, -1.0 ));
 	load_triangle(vec2(0.0,0.0),vec2(1.0,0.0),vec2(0.0,1.0));
