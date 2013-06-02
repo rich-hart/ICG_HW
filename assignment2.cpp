@@ -43,12 +43,13 @@ A,B,C
 void load_data(void){
 
 	int np=21;
+	/*
 	vec2 temp[21]= {
 
-       // vec2( 0.0, 0.0 ), vec2( -1.0, 0.0 ), vec2( 0.0, -1.0 ),
+       vec2( 0.0, 0.0 ), vec2( -1.0, 0.0 ), vec2( 0.0, -1.0 ),
 
-	//vec2(0.0,0.0),vec2(1.0,0.0),vec2(0.0,1.0),
-/*
+	vec2(0.0,0.0),vec2(1.0,0.0),vec2(0.0,1.0),
+
 	vec2(1.0,0.0),vec2(1.0,1.0),vec2(0.0,1.0),
 
 	vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),vec2(scale*(0.0+x_offest),scale*(1.0+y_offest)),
