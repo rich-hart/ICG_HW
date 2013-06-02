@@ -23,6 +23,22 @@ float scale=.51;
 vec2 vertices[BUFFER_SIZE] ;
 
 void load_data(void);
+void load_triangle(void);
+
+void load_triangle(void){
+	int np=3;
+	vec2 temp[3]= {
+
+        vec2( 0.0, 0.0 ), vec2( -1.0, 0.0 ), vec2( 0.0, -1.0 ),
+
+    };
+
+	for(int i = NumPoints ;i<np;i++){
+		vertices[i]=temp[i];
+	}
+	NumPoints=NumPoints+np;
+}
+
 
 void load_data(void){
 
@@ -55,13 +71,13 @@ vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),vec2(scale*(0.0+x_offest),scale*
 	for(int i = NumPoints ;i<np;i++){
 		vertices[i]=temp[i];
 	}
-	NumPoints=np;
+	NumPoints=NumPoints+np;
 }
 
 void
 init( void )
 {
-
+	load_triangle();
 	load_data();
 
     // Create a vertex array object
