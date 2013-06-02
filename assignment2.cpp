@@ -34,8 +34,9 @@ A,B,C
     };
 	
 	for(int i=0 ;i<3;i++){
-		p*=temp[i];
+		p*=temp*;
 		p++;
+		temp++;
 	}
 	NumPoints=NumPoints+3;
 	
