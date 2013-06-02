@@ -17,34 +17,39 @@ const int NumPoints = //3+
 const float x_offest=1.0;
 const float y_offest=-1.0;
 const float scale=.51;
+
+
+	    // Specifiy the vertices for a triangle
+	    vec2 vertices[NumPoints] = {
+
+	       // vec2( 0.0, 0.0 ), vec2( -1.0, 0.0 ), vec2( 0.0, -1.0 ),
+
+		vec2(0.0,0.0),vec2(1.0,0.0),vec2(0.0,1.0),
+
+		vec2(1.0,0.0),vec2(1.0,1.0),vec2(0.0,1.0),
+
+		vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),vec2(scale*(0.0+x_offest),scale*(1.0+y_offest)),
+
+	vec2(scale*(-sin(2*PI/5)+x_offest),scale*(cos(2*PI/5)+y_offest)),
+	vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),
+
+	vec2(scale*(-sin(2*PI/5)+x_offest),scale*(cos(2*PI/5)+y_offest)),vec2(scale*(-sin(4*PI/5)+x_offest),scale*(-cos(PI/5)+y_offest)),
+	vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),
+
+	vec2(scale*(-sin(4*PI/5)+x_offest),scale*(-cos(PI/5)+y_offest)),vec2(scale*(sin(4*PI/5)+x_offest),scale*(-cos(PI/5)+y_offest)),
+
+
+	vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),vec2(scale*(sin(4*PI/5)+x_offest),scale*(-cos(PI/5)+y_offest)),vec2(scale*(sin(2*PI/5)+x_offest),scale*(cos(2*PI/5)+y_offest)),
+
+
+	vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),vec2(scale*(0.0+x_offest),scale*(1.0+y_offest)),vec2(scale*(sin(2*PI/5)+x_offest),scale*(cos(2*PI/5)+y_offest))
+	    };
+
+
 void
 init( void )
 {
-    // Specifiy the vertices for a triangle
-    vec2 vertices[NumPoints] = {
 
-       // vec2( 0.0, 0.0 ), vec2( -1.0, 0.0 ), vec2( 0.0, -1.0 ),
-
-	vec2(0.0,0.0),vec2(1.0,0.0),vec2(0.0,1.0),
-
-	vec2(1.0,0.0),vec2(1.0,1.0),vec2(0.0,1.0),
-
-	vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),vec2(scale*(0.0+x_offest),scale*(1.0+y_offest)),
-
-vec2(scale*(-sin(2*PI/5)+x_offest),scale*(cos(2*PI/5)+y_offest)),
-vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),
-
-vec2(scale*(-sin(2*PI/5)+x_offest),scale*(cos(2*PI/5)+y_offest)),vec2(scale*(-sin(4*PI/5)+x_offest),scale*(-cos(PI/5)+y_offest)),
-vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),
-
-vec2(scale*(-sin(4*PI/5)+x_offest),scale*(-cos(PI/5)+y_offest)),vec2(scale*(sin(4*PI/5)+x_offest),scale*(-cos(PI/5)+y_offest)),
-
-
-vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),vec2(scale*(sin(4*PI/5)+x_offest),scale*(-cos(PI/5)+y_offest)),vec2(scale*(sin(2*PI/5)+x_offest),scale*(cos(2*PI/5)+y_offest)),
-
-
-vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),vec2(scale*(0.0+x_offest),scale*(1.0+y_offest)),vec2(scale*(sin(2*PI/5)+x_offest),scale*(cos(2*PI/5)+y_offest))
-    };
 
 
     // Create a vertex array object
