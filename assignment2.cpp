@@ -36,7 +36,7 @@ void load_triangle(void){
 	for(int i = NumPoints ;i<np;i++){
 		vertices[i]=temp[i];
 	}
-	NumPoints=NumPoints+1;
+	NumPoints=np;
 }
 
 
