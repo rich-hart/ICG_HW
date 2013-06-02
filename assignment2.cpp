@@ -8,7 +8,7 @@
 #define PI 3.14159265
 #define BUFFER_SIZE 100000
 
-const int NumPoints = //3+
+int NumPoints = //3+
 6+15;
 
 
@@ -24,7 +24,9 @@ float scale=.51;
 vec2 vertices[BUFFER_SIZE] ;
 
 void load_data(void){
-	vec2 temp[NumPoints]= {
+  int np=6+15;
+
+	vec2 temp[21]= {
 
        // vec2( 0.0, 0.0 ), vec2( -1.0, 0.0 ), vec2( 0.0, -1.0 ),
 
@@ -48,6 +50,7 @@ vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),vec2(scale*(sin(4*PI/5)+x_offest
 
 vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),vec2(scale*(0.0+x_offest),scale*(1.0+y_offest)),vec2(scale*(sin(2*PI/5)+x_offest),scale*(cos(2*PI/5)+y_offest))
     };
+	NumPoints=np;
 	for(int i=0;i<NumPoints;i++){
 		vertices[i]=temp[i];
 	}
