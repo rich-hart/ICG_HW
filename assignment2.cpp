@@ -29,14 +29,14 @@ void load_triangle(void){
 	int np=3;
 	vec2 temp[3]= {
 
-        vec2( 0.0, 0.0 ), vec2( -1.0, 0.0 ), vec2( 0.0, -1.0 ),
+        vec2( 0.0, 0.0 ), vec2( -1.0, 0.0 ), vec2( 0.0, -1.0 )
 
     };
 
 	for(int i = NumPoints ;i<np;i++){
 		vertices[i]=temp[i];
 	}
-	NumPoints=NumPoints+np;
+	NumPoints=NumPoints+1;
 }
 
 
