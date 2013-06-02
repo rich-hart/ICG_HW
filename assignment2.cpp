@@ -8,7 +8,7 @@
 #define PI 3.14159265
 #define BUFFER_SIZE 100000
 
-int NumPoints = 0;
+
 
 
 
@@ -35,7 +35,7 @@ A,B,C
 		vertices[index+i]=temp[i];
 	}
 	index=index+3;
-	NumPoints=NumPoints+3;
+//	NumPoints=NumPoints+3;
 	
 }
 
@@ -79,10 +79,13 @@ vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),vec2(scale*(0.0+x_offest),scale*
 void
 init( void )
 {
+	int NumPoints = 0;
 	load_triangle(vec2( 0.0, 0.0 ), vec2( -1.0, 0.0 ), vec2( 0.0, -1.0 ));
 	load_triangle(vec2(0.0,0.0),vec2(1.0,0.0),vec2(0.0,1.0));
 	load_data();
 
+	NumPoints=index;
+	
     // Create a vertex array object
     GLuint vao[1];
     glGenVertexArrays( 1, vao );
