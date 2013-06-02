@@ -21,7 +21,8 @@ void
 init( void )
 {
     // Specifiy the vertices for a triangle
-    vertices[NumPoints] = {
+	vec2 * p=vertices;
+    p* = {
 
        // vec2( 0.0, 0.0 ), vec2( -1.0, 0.0 ), vec2( 0.0, -1.0 ),
 
