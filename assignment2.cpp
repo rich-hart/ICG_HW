@@ -48,7 +48,7 @@ A,B,C
 	
 }
 
-void load_data(vec2 *ver_pointer,vec2 *shape_pointer){
+void load_data(vec2 *ver_pointer){
 	float x_offest=1.0;
 	float y_offest=-1.0;
 	float scale=.51;
@@ -101,7 +101,7 @@ init( void )
 	
 	load_triangle(vec2( 0.0, 0.0 ), vec2( -1.0, 0.0 ), vec2( 0.0, -1.0 ));
 	load_triangle(vec2(0.0,0.0),vec2(1.0,0.0),vec2(0.0,1.0));
-	load_data(ver_pointer,shape_pointer);
+	load_data(ver_pointer);
 
 
 	
