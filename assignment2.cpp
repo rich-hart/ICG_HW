@@ -20,37 +20,43 @@ const float scale=.51;
 
 
 	    // Specifiy the vertices for a triangle
-	    vec2 vertices[NumPoints] = {
+vec2 vertices[NumPoints] ;
 
-	       // vec2( 0.0, 0.0 ), vec2( -1.0, 0.0 ), vec2( 0.0, -1.0 ),
+void load_data(void){
+	vec2 temp[NumPoints]= {
 
-		vec2(0.0,0.0),vec2(1.0,0.0),vec2(0.0,1.0),
+       // vec2( 0.0, 0.0 ), vec2( -1.0, 0.0 ), vec2( 0.0, -1.0 ),
 
-		vec2(1.0,0.0),vec2(1.0,1.0),vec2(0.0,1.0),
+	vec2(0.0,0.0),vec2(1.0,0.0),vec2(0.0,1.0),
 
-		vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),vec2(scale*(0.0+x_offest),scale*(1.0+y_offest)),
+	vec2(1.0,0.0),vec2(1.0,1.0),vec2(0.0,1.0),
 
-	vec2(scale*(-sin(2*PI/5)+x_offest),scale*(cos(2*PI/5)+y_offest)),
-	vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),
+	vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),vec2(scale*(0.0+x_offest),scale*(1.0+y_offest)),
 
-	vec2(scale*(-sin(2*PI/5)+x_offest),scale*(cos(2*PI/5)+y_offest)),vec2(scale*(-sin(4*PI/5)+x_offest),scale*(-cos(PI/5)+y_offest)),
-	vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),
+vec2(scale*(-sin(2*PI/5)+x_offest),scale*(cos(2*PI/5)+y_offest)),
+vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),
 
-	vec2(scale*(-sin(4*PI/5)+x_offest),scale*(-cos(PI/5)+y_offest)),vec2(scale*(sin(4*PI/5)+x_offest),scale*(-cos(PI/5)+y_offest)),
+vec2(scale*(-sin(2*PI/5)+x_offest),scale*(cos(2*PI/5)+y_offest)),vec2(scale*(-sin(4*PI/5)+x_offest),scale*(-cos(PI/5)+y_offest)),
+vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),
+
+vec2(scale*(-sin(4*PI/5)+x_offest),scale*(-cos(PI/5)+y_offest)),vec2(scale*(sin(4*PI/5)+x_offest),scale*(-cos(PI/5)+y_offest)),
 
 
-	vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),vec2(scale*(sin(4*PI/5)+x_offest),scale*(-cos(PI/5)+y_offest)),vec2(scale*(sin(2*PI/5)+x_offest),scale*(cos(2*PI/5)+y_offest)),
+vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),vec2(scale*(sin(4*PI/5)+x_offest),scale*(-cos(PI/5)+y_offest)),vec2(scale*(sin(2*PI/5)+x_offest),scale*(cos(2*PI/5)+y_offest)),
 
 
-	vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),vec2(scale*(0.0+x_offest),scale*(1.0+y_offest)),vec2(scale*(sin(2*PI/5)+x_offest),scale*(cos(2*PI/5)+y_offest))
-	    };
-
+vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),vec2(scale*(0.0+x_offest),scale*(1.0+y_offest)),vec2(scale*(sin(2*PI/5)+x_offest),scale*(cos(2*PI/5)+y_offest))
+    };
+	for(int i=0;i<NumPoints;i++){
+		vertices[i]=temp[i];
+	}
+}
 
 void
 init( void )
 {
 
-
+	load_data();
 
     // Create a vertex array object
     GLuint vao[1];
