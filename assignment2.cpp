@@ -9,8 +9,7 @@
 
 
 
-vec2 vertices[BUFFER_SIZE] ;
-int NumPoints = 0;
+
 
 
 //--------------------------------------------------------------------------
@@ -18,19 +17,34 @@ int NumPoints = 0;
 
 
 	    // Specifiy the vertices for a triangle
+vec2 vertices[BUFFER_SIZE] ;
+int NumPoints = 0;
 
 
-
-// going to be part of new library
 #define PI 3.14159265
 #define SHAPE_BUFFER_SIZE 100000
 vec2 shape_buffer[SHAPE_BUFFER_SIZE];
 int index = 0;
 
+
+
 void load_data(void);
 void load_triangle(vec2 A, vec2 B, vec2 C);
 
 void load_triangle(vec2 A, vec2 B, vec2 C){
+
+	vec2 temp[3]= {
+A,B,C
+    };
+	
+	for(int i=0 ;i<3;i++){
+		shape_buffer[index+i]=temp[i];
+	}
+	index=index+3;
+
+	
+}
+
 void load_data(void){
 	float x_offest=1.0;
 	float y_offest=-1.0;
@@ -73,7 +87,7 @@ vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),vec2(scale*(0.0+x_offest),scale*
 		vertices[i]=shape_buffer[i];
 	}
 }
-//-------------------------
+
 void
 init( void )
 {
@@ -82,7 +96,7 @@ init( void )
 	load_triangle(vec2(0.0,0.0),vec2(1.0,0.0),vec2(0.0,1.0));
 	load_data();
 
-	
+
 	
     // Create a vertex array object
     GLuint vao[1];
