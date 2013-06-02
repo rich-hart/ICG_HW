@@ -5,18 +5,19 @@
 #include <math.h>
 
 
+#define PI 3.14159265
+#define BUFFER_SIZE 100000
 
-const int NumPoints = //3+
+int NumPoints = //3+
 6+15;
 
 
 
-#define PI 3.14159265
 
 //--------------------------------------------------------------------------
-const float x_offest=1.0;
-const float y_offest=-1.0;
-const float scale=.51;
+float x_offest=1.0;
+float y_offest=-1.0;
+float scale=.51;
 
 
 	    // Specifiy the vertices for a triangle
