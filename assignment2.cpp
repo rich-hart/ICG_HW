@@ -8,8 +8,7 @@
 #define PI 3.14159265
 #define BUFFER_SIZE 100000
 
-int NumPoints = //3+
-6+15;
+int NumPoints = 0;
 
 
 
@@ -52,10 +51,11 @@ vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),vec2(scale*(sin(4*PI/5)+x_offest
 
 vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),vec2(scale*(0.0+x_offest),scale*(1.0+y_offest)),vec2(scale*(sin(2*PI/5)+x_offest),scale*(cos(2*PI/5)+y_offest))
     };
-	NumPoints=np;
-	for(int i=0;i<NumPoints;i++){
+
+	for(int i = NumPoints ;i<np;i++){
 		vertices[i]=temp[i];
 	}
+	NumPoints=np;
 }
 
 void
