@@ -7,21 +7,22 @@
 
 #define PI 3.14159265
 #define BUFFER_SIZE 100000
-
+#define SHAPE_BUFFER_SIZE 100000
 
 
 
 
 
 //--------------------------------------------------------------------------
-float x_offest=1.0;
-float y_offest=-1.0;
-float scale=.51;
+
 
 
 	    // Specifiy the vertices for a triangle
 vec2 vertices[BUFFER_SIZE] ;
+vec2 shape_buffer[SHAPE_BUFFER_SIZE];
 int index = 0;
+
+
 int NumPoints = 0;
 void load_data(void);
 void load_triangle(vec2 A, vec2 B, vec2 C);
@@ -33,16 +34,18 @@ A,B,C
     };
 	
 	for(int i=0 ;i<3;i++){
-		vertices[index+i]=temp[i];
+		shape_buffer[index+i]=temp[i];
 	}
 	index=index+3;
-//	NumPoints=NumPoints+3;
+
 	
 }
 
 
 void load_data(void){
-
+	float x_offest=1.0;
+	float y_offest=-1.0;
+	float scale=.51;
 	int np=21;
 	/*
 	vec2 temp[21]= {
@@ -86,6 +89,10 @@ init( void )
 	load_data();
 
 	NumPoints=index;
+	
+	for(int i=0;i<NumPoints;i++){
+		vertices[i]=shape_buffer[i];
+	}
 	
     // Create a vertex array object
     GLuint vao[1];
@@ -143,7 +150,7 @@ main( int argc, char **argv )
     glutInitDisplayMode( GLUT_RGBA );
     glutInitWindowSize( 512, 512 );
 
-    glutCreateWindow( "Assignment 1" );
+    glutCreateWindow( "Assignment 2" );
     glewExperimental=GL_TRUE; 
     glewInit();    
     init();
