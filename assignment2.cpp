@@ -82,6 +82,7 @@ A,B,C
 	
 	for(int i=0 ;i<3;i++){
 		shape_buffer[index+i]=temp[i];
+		colors[index+i]=vec4( 1.0, 0.0, 1.0, 1.0 );
 	}
 	index=index+3;
 
@@ -213,7 +214,7 @@ void Load_Shaders(void){
                            BUFFER_OFFSET(0) );
 	
 	
-	//Initialize the vertex position attribute from the vertex shader
+	//Initialize the vertex color attribute from the vertex shader
     GLuint loc2 = glGetAttribLocation( program, "vColor" );
     glEnableVertexAttribArray( loc2 );
     glVertexAttribPointer( loc2, 4, GL_FLOAT, GL_FALSE, 0,
