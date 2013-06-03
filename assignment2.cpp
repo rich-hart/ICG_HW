@@ -18,6 +18,7 @@ void Vertex_Array_Object(void);
 
 	    // Specifiy the vertices for a triangle
 vec2 vertices[BUFFER_SIZE] ;
+vec4 colors[BUFFER_SIZE] ;
 vec2 *ver_pointer;
 int NumPoints = 0;
 
@@ -192,7 +193,9 @@ void Initialize_Buffer_Object(void){
     GLuint buffer;
     glGenBuffers( 1, &buffer );
     glBindBuffer( GL_ARRAY_BUFFER, buffer );
-    glBufferData( GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW );
+    glBufferData( GL_ARRAY_BUFFER, sizeof(vertices)+sizeof(colors), NULL, GL_STATIC_DRAW );
+	glBufferSubData( GL_ARRAY_BUFFER,0, sizeof(vertices), vertices );
+	glBufferSubData( GL_ARRAY_BUFFER,sizeof(vertices), sizeof(colors), colors );
 
 }
 
@@ -206,7 +209,15 @@ void Load_Shaders(void){
     glEnableVertexAttribArray( loc );
     glVertexAttribPointer( loc, 2, GL_FLOAT, GL_FALSE, 0,
                            BUFFER_OFFSET(0) );
-glClearColor( 0.0, 0.0, 0.0, 1.0 ); // black background
+	
+	
+	// Initialize the vertex position attribute from the vertex shader
+   // GLuint loc2 = glGetAttribLocation( program, "vColor" );
+  //  glEnableVertexAttribArray( loc2 );
+  //  glVertexAttribPointer( loc2, 4, GL_FLOAT, GL_FALSE, 0,
+  //                         BUFFER_OFFSET(sizeof(vertices)) );
+	
+	glClearColor( 0.0, 0.0, 0.0, 1.0 ); // black background
 }
 
 void
