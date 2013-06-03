@@ -24,18 +24,12 @@ int NumPoints = 0;
 
 #define PI 3.14159265
 #define SHAPE_BUFFER_SIZE 100000
+#define VECT_BUFFER_SIZE 100000
 vec2 shape_buffer[SHAPE_BUFFER_SIZE];
+
 vec2 *shape_pointer;
 
 int index = 0;
-
-
-//test
-void load_data(vec2 *ver_pointer,vec2 *shape_pointer);
-void load_triangle(vec2 A, vec2 B, vec2 C);
-
-
-
 		/*
 		float x_offest=1.0;
 		float y_offest=-1.0;
@@ -72,6 +66,16 @@ void load_triangle(vec2 A, vec2 B, vec2 C);
 		NumPoints=NumPoints+np;
 		*/
 
+//test
+void Create_Shapes(void);
+int load_data(vec2 *ver_pointer,vec2 *shape_pointer);
+void load_triangle(vec2 A, vec2 B, vec2 C);
+
+void Make_Square(float x, float y, float side);
+void Make_Equal_Tri(float cx, float cy,float side);
+float Degre_To_Rads(float degree);
+
+
 void load_triangle(vec2 A, vec2 B, vec2 C){
 
 			vec2 temp[3]= {A,B,C  };
@@ -84,9 +88,11 @@ void load_triangle(vec2 A, vec2 B, vec2 C){
 
 		}
 		
-/*load shape buffer into vertex buffer*/
-int load_data(vec2 *ver_pointer){
-	int num_points=0;
+
+
+int load_data(vec2 *ver_pointer,vec2 *shape_pointer){
+	NumPoints=index;
+	int num_points;
 	shape_pointer=shape_buffer;
 	for(int i=0;i<NumPoints;i++){
 		*ver_pointer= *shape_pointer;
@@ -96,15 +102,102 @@ int load_data(vec2 *ver_pointer){
 	}
 	return num_points;
 }
+void Make_Ellipse(float a, float b, float r);
+void Make_Square(float x, float y, float side){
+	int vect_total=4;
+	vec2 vect_buffer[vect_total];
+	vec2 temp1;
+	vec2 temp2;
+	vec2 center=vec2(x,y);
+	vect_buffer[0] = vec2( x+side/2.0, y+side/2.0 );
+	vect_buffer[1] =vec2( x+side/2.0, y-side/2.0 );
+	vect_buffer[2]  = vec2( x-side/2.0, y-side/2.0 );
+	vect_buffer[3] =vec2( x-side/2.0, y+side/2.0 );
+	
+	for(int i=0; i<=vect_total;i++){
+		temp1=vect_buffer[i%vect_total];
+		temp2=vect_buffer[(i+1)%vect_total];
+		load_triangle(temp1,center,temp2);
+	}
+	
+}
+
+float Degre_To_Rads(float degree){
+	
+	return 	M_PI*degree/(180.0);
+	
+}
+
+void Make_Ellipse(float cx, float cy, float a, float b, float r){
+	
+	int vect_total=360;
+	vec2 vect_buffer[vect_total];
+	vec2 temp1;
+	vec2 temp2;
+	vec2 center=vec2(cx,cy);
+	float x;
+	float y;
+	for(int i=0; i<=vect_total;i++){
+		x=sqrt(r)*a*cos(Degre_To_Rads(float(i)))+cx;
+			y=sqrt(r)*b*sin(Degre_To_Rads(float(i)))+cy;
+			vect_buffer[i]=vec2(x,y);
+	
+	}
+	
+	for(int i=0; i<=vect_total;i++){
+		temp1=vect_buffer[i%vect_total];
+		temp2=vect_buffer[(i+1)%vect_total];
+		load_triangle(temp1,center,temp2);
+	}
+	
+}
+
+void Make_Equal_Tri(float cx, float cy,float side){
+	
+	int vect_total=3;
+	vec2 vect_buffer[vect_total];
+	vec2 temp1;
+	vec2 temp2;
+	vec2 center=vec2(cx,cy);
+	
+	float hieght = sqrt(pow(side,2.0) - pow(side/2.0,2.0));
+	vect_buffer[0] = vec2( cx-side/2.0, cy -hieght/2.0);
+	vect_buffer[1] =vec2( cx+side-side/2.0, cy -hieght/2.0);
+	vect_buffer[2]  = vec2( cx+side/2.0-side/2.0, cy+ hieght-hieght/2.0);
+
+	
+	for(int i=0; i<=vect_total;i++){
+		temp1=vect_buffer[i%vect_total];
+		temp2=vect_buffer[(i+1)%vect_total];
+		load_triangle(temp1,center,temp2);
+	}
+	
+}
+
+void Create_Shapes(void){
+	//load_triangle(vec2( 0.0, 0.0 ), vec2( -1.0, 0.0 ), vec2( 0.0, -1.0 ));
+	//load_triangle(vec2(0.0,0.0),vec2(1.0,0.0),vec2(0.0,1.0));
+	
+	Make_Square(0.0,-0.5,.75);
+	Make_Ellipse(-0.5,0.5,2.0,1.0,.01);
+	Make_Ellipse(0.5,0.5,2.0,1.0,.01);
+	Make_Equal_Tri(0.0,0.5,.5);
+}
 
 void
 init( void )
 {
 	ver_pointer=vertices;
 	
+
 	load_triangle(vec2( 0.0, 0.0 ), vec2( -1.0, 0.0 ), vec2( 0.0, -1.0 ));
 	load_triangle(vec2(0.0,0.0),vec2(1.0,0.0),vec2(0.0,1.0));
-	NumPoints=load_data(ver_pointer);
+
+
+	Create_Shapes();
+	
+	NumPoints=load_data(ver_pointer,shape_pointer);
+
 
 
 	
@@ -160,6 +253,7 @@ keyboard( unsigned char key, int x, int y )
 int
 main( int argc, char **argv )
 {
+	puts("Testing Textmate Editing");
     glutInit( &argc, argv );
     glutInitDisplayMode( GLUT_RGBA );
     glutInitWindowSize( 512, 512 );
@@ -173,5 +267,6 @@ main( int argc, char **argv )
     glutKeyboardFunc( keyboard );
 
     glutMainLoop();
+	
     return 0;
 }
