@@ -170,5 +170,6 @@ main( int argc, char **argv )
     glutKeyboardFunc( keyboard );
 
     glutMainLoop();
+	puts("Testing Textmate Editing");
     return 0;
 }
