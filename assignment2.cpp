@@ -24,16 +24,53 @@ int NumPoints = 0;
 
 #define PI 3.14159265
 #define SHAPE_BUFFER_SIZE 100000
+#define VECT_BUFFER_SIZE 100000
 vec2 shape_buffer[SHAPE_BUFFER_SIZE];
+
 vec2 *shape_pointer;
 
 int index = 0;
+		/*
+		float x_offest=1.0;
+		float y_offest=-1.0;
+		float scale=.51;
+		int np=21;
+		vec2 temp[21]= {
 
+	       vec2( 0.0, 0.0 ), vec2( -1.0, 0.0 ), vec2( 0.0, -1.0 ),
+
+		vec2(0.0,0.0),vec2(1.0,0.0),vec2(0.0,1.0),
+
+		vec2(1.0,0.0),vec2(1.0,1.0),vec2(0.0,1.0),
+
+		vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),vec2(scale*(0.0+x_offest),scale*(1.0+y_offest)),
+
+	vec2(scale*(-sin(2*PI/5)+x_offest),scale*(cos(2*PI/5)+y_offest)),
+	vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),
+
+	vec2(scale*(-sin(2*PI/5)+x_offest),scale*(cos(2*PI/5)+y_offest)),vec2(scale*(-sin(4*PI/5)+x_offest),scale*(-cos(PI/5)+y_offest)),
+	vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),
+
+	vec2(scale*(-sin(4*PI/5)+x_offest),scale*(-cos(PI/5)+y_offest)),vec2(scale*(sin(4*PI/5)+x_offest),scale*(-cos(PI/5)+y_offest)),
+
+
+	vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),vec2(scale*(sin(4*PI/5)+x_offest),scale*(-cos(PI/5)+y_offest)),vec2(scale*(sin(2*PI/5)+x_offest),scale*(cos(2*PI/5)+y_offest)),
+
+
+	vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),vec2(scale*(0.0+x_offest),scale*(1.0+y_offest)),vec2(scale*(sin(2*PI/5)+x_offest),scale*(cos(2*PI/5)+y_offest))
+	    };
+
+		for(int i = NumPoints+1 ;i<np;i++){
+			vertices[i]=temp[i];
+		}
+		NumPoints=NumPoints+np;
+		*/
 
 //test
+void Create_Shapes(void);
 void load_data(vec2 *ver_pointer,vec2 *shape_pointer);
 void load_triangle(vec2 A, vec2 B, vec2 C);
-
+void Make_Square(float x, float y, float side);
 void load_triangle(vec2 A, vec2 B, vec2 C){
 
 	vec2 temp[3]= {
@@ -49,49 +86,39 @@ A,B,C
 }
 
 void load_data(vec2 *ver_pointer,vec2 *shape_pointer){
-	float x_offest=1.0;
-	float y_offest=-1.0;
-	float scale=.51;
-	int np=21;
-	/*
-	vec2 temp[21]= {
-
-       vec2( 0.0, 0.0 ), vec2( -1.0, 0.0 ), vec2( 0.0, -1.0 ),
-
-	vec2(0.0,0.0),vec2(1.0,0.0),vec2(0.0,1.0),
-
-	vec2(1.0,0.0),vec2(1.0,1.0),vec2(0.0,1.0),
-
-	vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),vec2(scale*(0.0+x_offest),scale*(1.0+y_offest)),
-
-vec2(scale*(-sin(2*PI/5)+x_offest),scale*(cos(2*PI/5)+y_offest)),
-vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),
-
-vec2(scale*(-sin(2*PI/5)+x_offest),scale*(cos(2*PI/5)+y_offest)),vec2(scale*(-sin(4*PI/5)+x_offest),scale*(-cos(PI/5)+y_offest)),
-vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),
-
-vec2(scale*(-sin(4*PI/5)+x_offest),scale*(-cos(PI/5)+y_offest)),vec2(scale*(sin(4*PI/5)+x_offest),scale*(-cos(PI/5)+y_offest)),
-
-
-vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),vec2(scale*(sin(4*PI/5)+x_offest),scale*(-cos(PI/5)+y_offest)),vec2(scale*(sin(2*PI/5)+x_offest),scale*(cos(2*PI/5)+y_offest)),
-
-
-vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),vec2(scale*(0.0+x_offest),scale*(1.0+y_offest)),vec2(scale*(sin(2*PI/5)+x_offest),scale*(cos(2*PI/5)+y_offest))
-    };
-
-	for(int i = NumPoints+1 ;i<np;i++){
-		vertices[i]=temp[i];
-	}
-	NumPoints=NumPoints+np;
-	*/
 	NumPoints=index;
 	shape_pointer=shape_buffer;
 	for(int i=0;i<NumPoints;i++){
-	//	vertices[i]=shape_buffer[i];
 		*ver_pointer= *shape_pointer;
 		ver_pointer++;
 		shape_pointer++;
 	}
+}
+
+void Make_Square(float x, float y, float side){
+	int vect_total=4;
+	vec2 vect_buffer[vect_total];
+	vec2 temp1;
+	vec2 temp2;
+	vec2 center=vec2(x,y);
+	vect_buffer[0] = vec2( x+side/2.0, y+side/2.0 );
+	vect_buffer[1] =vec2( x+side/2.0, y-side/2.0 );
+	vect_buffer[2]  = vec2( x-side/2.0, y-side/2.0 );
+	vect_buffer[3] =vec2( x-side/2.0, y+side/2.0 );
+	
+	for(int i=0; i<=vect_total;i++){
+		temp1=vect_buffer[i%vect_total];
+		temp2=vect_buffer[(i+1)%vect_total];
+		load_triangle(temp1,center,temp2);
+	}
+	
+}
+
+void Create_Shapes(void){
+	load_triangle(vec2( 0.0, 0.0 ), vec2( -1.0, 0.0 ), vec2( 0.0, -1.0 ));
+	//load_triangle(vec2(0.0,0.0),vec2(1.0,0.0),vec2(0.0,1.0));
+	
+	Make_Square(0.0,0.0,1.0);
 }
 
 void
@@ -99,8 +126,8 @@ init( void )
 {
 	ver_pointer=vertices;
 	
-	load_triangle(vec2( 0.0, 0.0 ), vec2( -1.0, 0.0 ), vec2( 0.0, -1.0 ));
-	load_triangle(vec2(0.0,0.0),vec2(1.0,0.0),vec2(0.0,1.0));
+	Create_Shapes();
+	
 	load_data(ver_pointer,shape_pointer);
 
 
