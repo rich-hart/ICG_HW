@@ -71,6 +71,8 @@ void Create_Shapes(void);
 void load_data(vec2 *ver_pointer,vec2 *shape_pointer);
 void load_triangle(vec2 A, vec2 B, vec2 C);
 void Make_Square(float x, float y, float side);
+void Make_Equal_Tri(float cx, float cy,float side);
+float Degre_To_Rads(float degree);
 void load_triangle(vec2 A, vec2 B, vec2 C){
 
 	vec2 temp[3]= {
@@ -136,6 +138,27 @@ void Make_Ellipse(float cx, float cy, float a, float b, float r){
 	
 	}
 	
+	for(int i=0; i<=vect_total;i++){
+		temp1=vect_buffer[i%vect_total];
+		temp2=vect_buffer[(i+1)%vect_total];
+		load_triangle(temp1,center,temp2);
+	}
+	
+}
+
+void Make_Equal_Tri(float cx, float cy,float side){
+	
+	int vect_total=3;
+	vec2 vect_buffer[vect_total];
+	vec2 temp1;
+	vec2 temp2;
+	vec2 center=vec2(cx,cy);
+	
+	float hieght = sqrt(pow(side,2.0) - pow(side/2.0,2.0));
+	vect_buffer[0] = vec2( cx-side/2.0, cy -hieght/2.0);
+	vect_buffer[1] =vec2( cx+side-side/2.0, cy -hieght/2.0);
+	vect_buffer[2]  = vec2( cx+side/2.0-side/2.0, cy+ hieght-hieght/2.0);
+
 	
 	for(int i=0; i<=vect_total;i++){
 		temp1=vect_buffer[i%vect_total];
@@ -145,13 +168,13 @@ void Make_Ellipse(float cx, float cy, float a, float b, float r){
 	
 }
 
-
 void Create_Shapes(void){
 	//load_triangle(vec2( 0.0, 0.0 ), vec2( -1.0, 0.0 ), vec2( 0.0, -1.0 ));
 	//load_triangle(vec2(0.0,0.0),vec2(1.0,0.0),vec2(0.0,1.0));
 	
 	//Make_Square(0.0,0.0,1.0);
-	Make_Ellipse(-0.5,0.5,2.0,1.0,.1);
+//	Make_Ellipse(-0.5,0.5,2.0,1.0,.1);
+	Make_Equal_Tri(0.0,0.0,1.0);
 }
 
 void
