@@ -82,7 +82,9 @@ A,B,C
 	
 	for(int i=0 ;i<3;i++){
 		shape_buffer[index+i]=temp[i];
-		colors[index+i]=vec4( 1.0, 0.0, 1.0, 1.0 );
+
+		colors[index+i]=vec4( 0.0, 0.0, 1.0, 1.0 );
+
 	}
 	index=index+3;
 
