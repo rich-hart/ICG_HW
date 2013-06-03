@@ -157,6 +157,7 @@ keyboard( unsigned char key, int x, int y )
 int
 main( int argc, char **argv )
 {
+	puts("Testing Textmate Editing");
     glutInit( &argc, argv );
     glutInitDisplayMode( GLUT_RGBA );
     glutInitWindowSize( 512, 512 );
@@ -170,6 +171,6 @@ main( int argc, char **argv )
     glutKeyboardFunc( keyboard );
 
     glutMainLoop();
-	puts("Testing Textmate Editing");
+	
     return 0;
 }
