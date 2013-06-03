@@ -94,7 +94,7 @@ void load_data(vec2 *ver_pointer,vec2 *shape_pointer){
 		shape_pointer++;
 	}
 }
-
+void Make_Ellipse(float a, float b, float r);
 void Make_Square(float x, float y, float side){
 	int vect_total=4;
 	vec2 vect_buffer[vect_total];
@@ -114,11 +114,44 @@ void Make_Square(float x, float y, float side){
 	
 }
 
+float Degre_To_Rads(float degree){
+	
+	return 	M_PI*degree/(180.0);
+	
+}
+
+void Make_Ellipse(float cx, float cy, float a, float b, float r){
+	
+	int vect_total=360;
+	vec2 vect_buffer[vect_total];
+	vec2 temp1;
+	vec2 temp2;
+	vec2 center=vec2(cx,cy);
+	float x;
+	float y;
+	for(int i=0; i<=vect_total;i++){
+		x=sqrt(r)*a*cos(Degre_To_Rads(float(i)))+cx;
+			y=sqrt(r)*b*sin(Degre_To_Rads(float(i)))+cy;
+			vect_buffer[i]=vec2(x,y);
+	
+	}
+	
+	
+	for(int i=0; i<=vect_total;i++){
+		temp1=vect_buffer[i%vect_total];
+		temp2=vect_buffer[(i+1)%vect_total];
+		load_triangle(temp1,center,temp2);
+	}
+	
+}
+
+
 void Create_Shapes(void){
-	load_triangle(vec2( 0.0, 0.0 ), vec2( -1.0, 0.0 ), vec2( 0.0, -1.0 ));
+	//load_triangle(vec2( 0.0, 0.0 ), vec2( -1.0, 0.0 ), vec2( 0.0, -1.0 ));
 	//load_triangle(vec2(0.0,0.0),vec2(1.0,0.0),vec2(0.0,1.0));
 	
-	Make_Square(0.0,0.0,1.0);
+	//Make_Square(0.0,0.0,1.0);
+	Make_Ellipse(-0.5,0.5,2.0,1.0,.1);
 }
 
 void
