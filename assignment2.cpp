@@ -14,7 +14,7 @@
 
 //--------------------------------------------------------------------------
 
-
+void Vertex_Array_Object(void);
 
 	    // Specifiy the vertices for a triangle
 vec2 vertices[BUFFER_SIZE] ;
@@ -174,8 +174,39 @@ void Create_Shapes(void){
 	
 	Make_Square(0.0,-0.5,.75);
 	Make_Ellipse(-0.5,0.5,2.0,1.0,.01);
-	Make_Ellipse(0.5,0.5,2.0,1.0,.01);
+	Make_Ellipse(0.5,0.5,1.0,1.0,.05);
 	Make_Equal_Tri(0.0,0.5,.5);
+}
+
+
+void Vertex_Array_Object(void){
+	// Create a vertex array object
+    GLuint vao[1];
+    glGenVertexArrays( 1, vao );
+    glBindVertexArray( vao[0] );
+}
+
+void Initialize_Buffer_Object(void){
+	
+	// Create and initialize a buffer object
+    GLuint buffer;
+    glGenBuffers( 1, &buffer );
+    glBindBuffer( GL_ARRAY_BUFFER, buffer );
+    glBufferData( GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW );
+
+}
+
+void Load_Shaders(void){
+	// Load shaders and use the resulting shader program
+    GLuint program = InitShader( "vshader21.glsl", "fshader21.glsl" );
+    glUseProgram( program );
+
+    // Initialize the vertex position attribute from the vertex shader
+    GLuint loc = glGetAttribLocation( program, "vPosition" );
+    glEnableVertexAttribArray( loc );
+    glVertexAttribPointer( loc, 2, GL_FLOAT, GL_FALSE, 0,
+                           BUFFER_OFFSET(0) );
+glClearColor( 0.0, 0.0, 0.0, 1.0 ); // black background
 }
 
 void
@@ -188,30 +219,16 @@ init( void )
 	load_data(ver_pointer,shape_pointer);
 
 
-	
-    // Create a vertex array object
-    GLuint vao[1];
-    glGenVertexArrays( 1, vao );
-    glBindVertexArray( vao[0] );
+	Vertex_Array_Object();
     
 
-    // Create and initialize a buffer object
-    GLuint buffer;
-    glGenBuffers( 1, &buffer );
-    glBindBuffer( GL_ARRAY_BUFFER, buffer );
-    glBufferData( GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW );
+	Initialize_Buffer_Object();
+	
 
-    // Load shaders and use the resulting shader program
-    GLuint program = InitShader( "vshader21.glsl", "fshader21.glsl" );
-    glUseProgram( program );
+	Load_Shaders();
 
-    // Initialize the vertex position attribute from the vertex shader
-    GLuint loc = glGetAttribLocation( program, "vPosition" );
-    glEnableVertexAttribArray( loc );
-    glVertexAttribPointer( loc, 2, GL_FLOAT, GL_FALSE, 0,
-                           BUFFER_OFFSET(0) );
-
-    glClearColor( 1.0, 1.0, 1.0, 1.0 ); // white background
+	
+    
 }
 
 //----------------------------------------------------------------------------
