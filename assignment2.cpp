@@ -189,6 +189,8 @@ void Vertex_Array_Object(void){
 
 void Initialize_Buffer_Object(void){
 	
+
+	
 	// Create and initialize a buffer object
     GLuint buffer;
     glGenBuffers( 1, &buffer );
@@ -211,11 +213,11 @@ void Load_Shaders(void){
                            BUFFER_OFFSET(0) );
 	
 	
-	// Initialize the vertex position attribute from the vertex shader
-   // GLuint loc2 = glGetAttribLocation( program, "vColor" );
-  //  glEnableVertexAttribArray( loc2 );
-  //  glVertexAttribPointer( loc2, 4, GL_FLOAT, GL_FALSE, 0,
-  //                         BUFFER_OFFSET(sizeof(vertices)) );
+	//Initialize the vertex position attribute from the vertex shader
+    GLuint loc2 = glGetAttribLocation( program, "vColor" );
+    glEnableVertexAttribArray( loc2 );
+    glVertexAttribPointer( loc2, 4, GL_FLOAT, GL_FALSE, 0,
+                           BUFFER_OFFSET(sizeof(vertices)) );
 	
 	glClearColor( 0.0, 0.0, 0.0, 1.0 ); // black background
 }
