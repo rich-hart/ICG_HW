@@ -172,9 +172,10 @@ void Create_Shapes(void){
 	//load_triangle(vec2( 0.0, 0.0 ), vec2( -1.0, 0.0 ), vec2( 0.0, -1.0 ));
 	//load_triangle(vec2(0.0,0.0),vec2(1.0,0.0),vec2(0.0,1.0));
 	
-	//Make_Square(0.0,0.0,1.0);
-//	Make_Ellipse(-0.5,0.5,2.0,1.0,.1);
-	Make_Equal_Tri(0.0,0.0,1.0);
+	Make_Square(0.0,-0.5,.75);
+	Make_Ellipse(-0.5,0.5,2.0,1.0,.01);
+	Make_Ellipse(0.5,0.5,2.0,1.0,.01);
+	Make_Equal_Tri(0.0,0.5,.5);
 }
 
 void
