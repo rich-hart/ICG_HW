@@ -172,7 +172,17 @@ void Make_Ellipse(float cx, float cy, float a, float b, float r,int type){
 	}
 	
 }
-
+void load_multi_color(void){
+	colors[color_index]=vec4(1.0,0.0,0.0,1.0);
+		color_index++;	
+		
+		colors[color_index]=vec4(0.0,1.0,0.0,1.0);
+			color_index++;
+			
+				colors[color_index]=vec4(0.0,0.0,1.0,1.0);
+					color_index++;
+	
+}
 void Make_Equal_Tri(float cx, float cy,float side){
 	
 	int vect_total=3;
@@ -187,16 +197,10 @@ void Make_Equal_Tri(float cx, float cy,float side){
 	vec2 C   = vec2( cx+side/2.0-side/2.0, cy+ hieght-hieght/2.0);
 
 	load_triangle(A,B,C);
+	load_multi_color();
 	//load_color(0.0,1.0,0.0,1.0);
 //	load_color(cx,cy,side,.001);
-	colors[color_index]=vec4(1.0,0.0,0.0,1.0);
-		color_index++;	
-		
-		colors[color_index]=vec4(0.0,1.0,0.0,1.0);
-			color_index++;
-			
-				colors[color_index]=vec4(0.0,0.0,1.0,1.0);
-					color_index++;
+
 	/*
 	for(int i=0; i<=vect_total;i++){
 		temp1=vect_buffer[i%vect_total];
@@ -211,11 +215,11 @@ void Make_Equal_Tri(float cx, float cy,float side){
 void Create_Shapes(void){
 	//load_triangle(vec2( 0.0, 0.0 ), vec2( -1.0, 0.0 ), vec2( 0.0, -1.0 ));
 	//load_triangle(vec2(0.0,0.0),vec2(1.0,0.0),vec2(0.0,1.0));
-	
-	Make_Square(0.0,-0.5,.75,1);
-	Make_Square(0.0,-0.5,.5,0);
-	Make_Square(0.0,-0.5,.25,1);
-	Make_Square(0.0,-0.5,.123,0);
+	Make_Square(0.0,-0.5,1.0,1);
+	Make_Square(0.0,-0.5,.75,0);
+	Make_Square(0.0,-0.5,.5,1);
+	Make_Square(0.0,-0.5,.25,0);
+	Make_Square(0.0,-0.5,.123,1);
 	Make_Ellipse(-0.5,0.5,2.0,1.0,.01,0);
 	Make_Ellipse(0.5,0.5,1.0,1.0,.05,1);
 	Make_Equal_Tri(0.0,0.5,.5);
