@@ -4,31 +4,17 @@ attribute vec4 vColor;
 
 varying vec4 fColor;
 
+
+float Distance(float x1,float y1, float x2, float y2){
+
+	return sqrt(pow(x1-x2,2)+pow(y1-y2,2));
+}
+
 void
 main()
 {
     gl_Position = vPosition;
-
-	float type= vColor.x;
 	
-	if(type==0.0){
-	
-	fColor=vec4(0.0,0.0,0.0,1.0);
-	
-	}
-	
-	if(type==1.0){
-	
-	fColor=vec4(1.0,1.0,1.0,1.0);
-	
-	}
-	
-	if(type<1.0){
-	
-	fColor=vec4(1.0,0.0,0.0,.5);
-	
-	}
-
-	
+	fColor = vColor;
 
 }
