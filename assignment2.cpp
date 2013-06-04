@@ -6,82 +6,59 @@
 
 #define BUFFER_SIZE 100000
 
+//Angel Code:
 
-
-
-
-
-
-//--------------------------------------------------------------------------
-
-void Vertex_Array_Object(void);
-
-	    // Specifiy the vertices for a triangle
-vec2 vertices[BUFFER_SIZE] ;
-vec4 colors[BUFFER_SIZE] ;
+vec2 vertices[BUFFER_SIZE] ;// Specifiy the vertices for a triangle
 vec2 *ver_pointer;
+
 int NumPoints = 0;
 
+void Vertex_Array_Object(void);
+void Initialize_Buffer_Object(void);
+void Load_Shaders(void);
 
+//---------
+
+// My Code:
+
+//define constants
 #define PI 3.14159265
 #define SHAPE_BUFFER_SIZE 100000
 #define VECT_BUFFER_SIZE 100000
+
+//arrays to hold shape and color data of objects
 vec2 shape_buffer[SHAPE_BUFFER_SIZE];
-
 vec2 *shape_pointer;
-
 int index = 0;
+vec4 colors[BUFFER_SIZE] ;
 int color_index=0;
-		/*
-		float x_offest=1.0;
-		float y_offest=-1.0;
-		float scale=.51;
-		int np=21;
-		vec2 temp[21]= {
-
-	       vec2( 0.0, 0.0 ), vec2( -1.0, 0.0 ), vec2( 0.0, -1.0 ),
-
-		vec2(0.0,0.0),vec2(1.0,0.0),vec2(0.0,1.0),
-
-		vec2(1.0,0.0),vec2(1.0,1.0),vec2(0.0,1.0),
-
-		vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),vec2(scale*(0.0+x_offest),scale*(1.0+y_offest)),
-
-	vec2(scale*(-sin(2*PI/5)+x_offest),scale*(cos(2*PI/5)+y_offest)),
-	vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),
-
-	vec2(scale*(-sin(2*PI/5)+x_offest),scale*(cos(2*PI/5)+y_offest)),vec2(scale*(-sin(4*PI/5)+x_offest),scale*(-cos(PI/5)+y_offest)),
-	vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),
-
-	vec2(scale*(-sin(4*PI/5)+x_offest),scale*(-cos(PI/5)+y_offest)),vec2(scale*(sin(4*PI/5)+x_offest),scale*(-cos(PI/5)+y_offest)),
 
 
-	vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),vec2(scale*(sin(4*PI/5)+x_offest),scale*(-cos(PI/5)+y_offest)),vec2(scale*(sin(2*PI/5)+x_offest),scale*(cos(2*PI/5)+y_offest)),
-
-
-	vec2(scale*(0.0+x_offest),scale*(0.0+y_offest)),vec2(scale*(0.0+x_offest),scale*(1.0+y_offest)),vec2(scale*(sin(2*PI/5)+x_offest),scale*(cos(2*PI/5)+y_offest))
-	    };
-
-		for(int i = NumPoints+1 ;i<np;i++){
-			vertices[i]=temp[i];
-		}
-		NumPoints=NumPoints+np;
-		*/
-
-//test
-void Create_Shapes(void);
+//this loads vertex data from my buffer into angel's
 void load_data(vec2 *ver_pointer,vec2 *shape_pointer);
-void load_triangle(vec2 A, vec2 B, vec2 C);
-void Make_Square(float x, float y, float side,int type);
-void Make_Equal_Tri(float cx, float cy,float side);
-float Degre_To_Rads(float degree);
-void load_color(float r, float g, float b, float a);
-void load_triangle(vec2 A, vec2 B, vec2 C){
 
-	vec2 temp[3]= {
-A,B,C
-    };
-	
+//functions that load data needed to generate an object into my buffer
+void load_triangle(vec2 A, vec2 B, vec2 C);
+
+void load_color(float r, float g, float b, float a);
+
+void load_multi_color(void);
+
+//functions used to generate shapes
+void Make_Square(float x, float y, float side,int type);
+
+void Make_Equal_Tri(float cx, float cy,float side);
+
+float Degre_To_Rads(float degree);
+
+void Make_Ellipse(float a, float b, float r,int type);
+
+void Create_Shapes(void);
+
+
+
+//load 3 non co-plainer points into the shape buffer render a triangle.
+void load_triangle(vec2 A, vec2 B, vec2 C){
 
 	shape_buffer[index]=A;
 	index++;
@@ -90,9 +67,10 @@ A,B,C
 	shape_buffer[index]=C;
 	index++;
 	
-	
-	
 }
+
+// defines the color of a triangle that was just added into the shape buffer. 
+//must be called after load_triangle. 
 
 void load_color(float r, float g, float b, float a){
 	for(int i=0;i<3;i++){
@@ -102,6 +80,22 @@ void load_color(float r, float g, float b, float a){
 	
 }
 
+// defines a multicolored shading for a triangle that was just added into the shape buffer. 
+//must be called after load_triangle.
+
+void load_multi_color(void){
+	colors[color_index]=vec4(1.0,0.0,0.0,1.0);
+		color_index++;	
+		
+		colors[color_index]=vec4(0.0,1.0,0.0,1.0);
+			color_index++;
+			
+				colors[color_index]=vec4(0.0,0.0,1.0,1.0);
+					color_index++;
+	
+}
+
+// loads data from my buffer into angels vertex buffer
 void load_data(vec2 *ver_pointer,vec2 *shape_pointer){
 	NumPoints=index;
 	shape_pointer=shape_buffer;
@@ -111,7 +105,8 @@ void load_data(vec2 *ver_pointer,vec2 *shape_pointer){
 		shape_pointer++;
 	}
 }
-void Make_Ellipse(float a, float b, float r,int type);
+
+// create a square of cented at (x,y)
 void Make_Square(float x, float y, float side,int type){
 	int vect_total=4;
 	vec2 vect_buffer[vect_total];
@@ -142,6 +137,7 @@ float Degre_To_Rads(float degree){
 	
 }
 
+//creates an ellipse based on the equation (x/a)^2+(y/b)^2=r^2
 void Make_Ellipse(float cx, float cy, float a, float b, float r,int type){
 	
 	int vect_total=360;
@@ -172,17 +168,8 @@ void Make_Ellipse(float cx, float cy, float a, float b, float r,int type){
 	}
 	
 }
-void load_multi_color(void){
-	colors[color_index]=vec4(1.0,0.0,0.0,1.0);
-		color_index++;	
-		
-		colors[color_index]=vec4(0.0,1.0,0.0,1.0);
-			color_index++;
-			
-				colors[color_index]=vec4(0.0,0.0,1.0,1.0);
-					color_index++;
-	
-}
+
+//creates an equalateral triangle centered at (x,y)
 void Make_Equal_Tri(float cx, float cy,float side){
 	
 	int vect_total=3;
@@ -198,23 +185,13 @@ void Make_Equal_Tri(float cx, float cy,float side){
 
 	load_triangle(A,B,C);
 	load_multi_color();
-	//load_color(0.0,1.0,0.0,1.0);
-//	load_color(cx,cy,side,.001);
 
-	/*
-	for(int i=0; i<=vect_total;i++){
-		temp1=vect_buffer[i%vect_total];
-		temp2=vect_buffer[(i+1)%vect_total];
-		load_triangle(temp1,center,temp2);
-		load_color(1.0,0.0,0.0,1.0);
-	}
-	*/
 	
 }
 
+// the function that defines that shaped to be displays
 void Create_Shapes(void){
-	//load_triangle(vec2( 0.0, 0.0 ), vec2( -1.0, 0.0 ), vec2( 0.0, -1.0 ));
-	//load_triangle(vec2(0.0,0.0),vec2(1.0,0.0),vec2(0.0,1.0));
+
 	Make_Square(0.0,-0.5,1.0,1);
 	Make_Square(0.0,-0.5,.75,0);
 	Make_Square(0.0,-0.5,.5,1);
@@ -226,47 +203,6 @@ void Create_Shapes(void){
 }
 
 
-void Vertex_Array_Object(void){
-	// Create a vertex array object
-    GLuint vao[1];
-    glGenVertexArrays( 1, vao );
-    glBindVertexArray( vao[0] );
-}
-
-void Initialize_Buffer_Object(void){
-	
-
-	
-	// Create and initialize a buffer object
-    GLuint buffer;
-    glGenBuffers( 1, &buffer );
-    glBindBuffer( GL_ARRAY_BUFFER, buffer );
-    glBufferData( GL_ARRAY_BUFFER, sizeof(vertices)+sizeof(colors), NULL, GL_STATIC_DRAW );
-	glBufferSubData( GL_ARRAY_BUFFER,0, sizeof(vertices), vertices );
-	glBufferSubData( GL_ARRAY_BUFFER,sizeof(vertices), sizeof(colors), colors );
-
-}
-
-void Load_Shaders(void){
-	// Load shaders and use the resulting shader program
-    GLuint program = InitShader( "vshader21.glsl", "fshader21.glsl" );
-    glUseProgram( program );
-
-    // Initialize the vertex position attribute from the vertex shader
-    GLuint loc = glGetAttribLocation( program, "vPosition" );
-    glEnableVertexAttribArray( loc );
-    glVertexAttribPointer( loc, 2, GL_FLOAT, GL_FALSE, 0,
-                           BUFFER_OFFSET(0) );
-	
-	
-	//Initialize the vertex position attribute from the vertex shader
-    GLuint loc2 = glGetAttribLocation( program, "vColor" );
-    glEnableVertexAttribArray( loc2 );
-    glVertexAttribPointer( loc2, 4, GL_FLOAT, GL_FALSE, 0,
-                           BUFFER_OFFSET(sizeof(vertices)) );
-	
-	glClearColor( 0.0, 0.0, 0.0, 1.0 ); // black background
-}
 
 void
 init( void )
@@ -334,3 +270,48 @@ main( int argc, char **argv )
 	
     return 0;
 }
+
+
+
+void Vertex_Array_Object(void){
+	// Create a vertex array object
+    GLuint vao[1];
+    glGenVertexArrays( 1, vao );
+    glBindVertexArray( vao[0] );
+}
+
+void Initialize_Buffer_Object(void){
+	
+
+	
+	// Create and initialize a buffer object
+    GLuint buffer;
+    glGenBuffers( 1, &buffer );
+    glBindBuffer( GL_ARRAY_BUFFER, buffer );
+    glBufferData( GL_ARRAY_BUFFER, sizeof(vertices)+sizeof(colors), NULL, GL_STATIC_DRAW );
+	glBufferSubData( GL_ARRAY_BUFFER,0, sizeof(vertices), vertices );
+	glBufferSubData( GL_ARRAY_BUFFER,sizeof(vertices), sizeof(colors), colors );
+
+}
+
+void Load_Shaders(void){
+	// Load shaders and use the resulting shader program
+    GLuint program = InitShader( "vshader21.glsl", "fshader21.glsl" );
+    glUseProgram( program );
+
+    // Initialize the vertex position attribute from the vertex shader
+    GLuint loc = glGetAttribLocation( program, "vPosition" );
+    glEnableVertexAttribArray( loc );
+    glVertexAttribPointer( loc, 2, GL_FLOAT, GL_FALSE, 0,
+                           BUFFER_OFFSET(0) );
+	
+	
+	//Initialize the vertex position attribute from the vertex shader
+    GLuint loc2 = glGetAttribLocation( program, "vColor" );
+    glEnableVertexAttribArray( loc2 );
+    glVertexAttribPointer( loc2, 4, GL_FLOAT, GL_FALSE, 0,
+                           BUFFER_OFFSET(sizeof(vertices)) );
+	
+	glClearColor( 0.0, 0.0, 0.0, 1.0 ); // black background
+}
+
