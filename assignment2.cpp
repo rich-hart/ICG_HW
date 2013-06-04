@@ -153,11 +153,14 @@ void Make_Poly(float cx, float cy, float a, float b, float r,float rotate, int s
 	
 
 	vec2 vect_buffer[sides];
+	
 	vec2 temp1;
 	vec2 temp2;
 	vec2 temp3;
-	vec2 center=vec2(cx,cy);
-		vec2 off_center=vec2(sqrt(r)*a+cx,cy);
+	
+	vec2 center;
+	vec2 off_center;
+	
 	float x;
 	float y;
 	float degree=rotate;
@@ -165,26 +168,33 @@ void Make_Poly(float cx, float cy, float a, float b, float r,float rotate, int s
 		x=sqrt(r)*a*cos(Degre_To_Rads(degree))+cx;
 			y=sqrt(r)*b*sin(Degre_To_Rads(degree))+cy;
 			vect_buffer[i]=vec2(x,y);
-			degree=degree+(360.0/sides);
+			degree=degree+(360.0/(float)sides);
 	}
+	center=vec2(cx,cy);
+	off_center=vect_buffer[0];
 	
 	for(int i=0; i<=sides;i++){
 		temp1=vect_buffer[i%sides];
 		temp2=vect_buffer[(i+1)%sides];
-		temp3=vect_buffer[(i+2)%sides];
+		
 			switch (shade_location){
 				case SHADE_CENTER:
+				temp3=center;
+			
 		
-			load_triangle(temp1,center,temp2);
 				break;
 		case SHADE_OFF_CENTER:
 				
-					load_triangle(temp1,off_center,temp2);
+		temp3=off_center;
 				break;
 					case SHADE_VERTEXS:
-					load_triangle(temp1,temp2,temp3);
+					temp3=vect_buffer[(i+2)%sides];
 							break;
+						
 		}
+		
+		
+		load_triangle(temp1,temp2,temp3);
 		
 		switch ( color )
 		      {
