@@ -6,6 +6,16 @@
 
 #define BUFFER_SIZE 100000
 
+#define RED 0
+#define RED_SHADED 1
+#define WHITE 2
+#define BLACK 3
+#define MULTI_COLORED 4
+
+#define SHADE_CENTER 0
+#define SHADE_OFF_CENTER 1
+#define SHADE_VERTEXS 2
+
 //Angel Code:
 
 vec2 vertices[BUFFER_SIZE] ;// Specifiy the vertices for a triangle
@@ -51,7 +61,7 @@ void Make_Equal_Tri(float cx, float cy,float side);
 
 float Degre_To_Rads(float degree);
 
-void Make_Ellipse(float a, float b, float r,int type);
+void Make_Poly(float cx, float cy, float a, float b, float r,float rotate, int sides,int color, int shade_location);
 
 void Create_Shapes(void);
 
@@ -85,14 +95,13 @@ void load_color(float r, float g, float b, float a){
 
 void load_multi_color(void){
 	colors[color_index]=vec4(1.0,0.0,0.0,1.0);
-		color_index++;	
+	color_index++;	
 		
-		colors[color_index]=vec4(0.0,1.0,0.0,1.0);
-			color_index++;
+	colors[color_index]=vec4(0.0,1.0,0.0,1.0);
+	color_index++;
 			
-				colors[color_index]=vec4(0.0,0.0,1.0,1.0);
-					color_index++;
-	
+	colors[color_index]=vec4(0.0,0.0,1.0,1.0);
+	color_index++;
 }
 
 // loads data from my buffer into angels vertex buffer
@@ -138,33 +147,67 @@ float Degre_To_Rads(float degree){
 }
 
 //creates an ellipse based on the equation (x/a)^2+(y/b)^2=r^2
-void Make_Ellipse(float cx, float cy, float a, float b, float r,int type){
+
+
+void Make_Poly(float cx, float cy, float a, float b, float r,float rotate, int sides,int color, int shade_location){
 	
-	int vect_total=360;
-	vec2 vect_buffer[vect_total];
+
+	vec2 vect_buffer[sides];
 	vec2 temp1;
 	vec2 temp2;
+	vec2 temp3;
 	vec2 center=vec2(cx,cy);
+		vec2 off_center=vec2(sqrt(r)*a+cx,cy);
 	float x;
 	float y;
-	for(int i=0; i<=vect_total;i++){
-		x=sqrt(r)*a*cos(Degre_To_Rads(float(i)))+cx;
-			y=sqrt(r)*b*sin(Degre_To_Rads(float(i)))+cy;
+	float degree=rotate;
+	for(int i=0; i<=sides;i++){
+		x=sqrt(r)*a*cos(Degre_To_Rads(degree))+cx;
+			y=sqrt(r)*b*sin(Degre_To_Rads(degree))+cy;
 			vect_buffer[i]=vec2(x,y);
-	
+			degree=degree+(360.0/sides);
 	}
 	
-	for(int i=0; i<=vect_total;i++){
-		temp1=vect_buffer[i%vect_total];
-		temp2=vect_buffer[(i+1)%vect_total];
-		if(type){
-			vec2 off_center=vec2(sqrt(r)*a+cx,cy);
-		load_triangle(temp1,off_center,temp2);
-		load_color(float(i)/float(vect_total),0.0,0.0,1.0);
-		} else{
-				load_triangle(temp1,center,temp2);
-				load_color(1.0,0.0,0.0,1.0);
+	for(int i=0; i<=sides;i++){
+		temp1=vect_buffer[i%sides];
+		temp2=vect_buffer[(i+1)%sides];
+		temp3=vect_buffer[(i+2)%sides];
+			switch (shade_location){
+				case SHADE_CENTER:
+		
+			load_triangle(temp1,center,temp2);
+				break;
+		case SHADE_OFF_CENTER:
+				
+					load_triangle(temp1,off_center,temp2);
+				break;
+					case SHADE_VERTEXS:
+					load_triangle(temp1,temp2,temp3);
+							break;
 		}
+		
+		switch ( color )
+		      {
+		         case RED:
+		           	load_color(1.0,0.0,0.0,1.0);
+		            break;
+		         case RED_SHADED:
+		           	load_color(float(i)/float(sides),0.0,0.0,1.0);
+		            break;
+					case WHITE:
+			          load_color(1.0,1.0,1.0,1.0);
+			            break;
+						case BLACK:
+				            load_color(0.0,0.0,0.0,1.0);
+				            break;
+							case MULTI_COLORED:
+							load_multi_color();
+					            break;
+		         default:
+				break;    
+		      }
+		
+	
 	}
 	
 }
@@ -192,14 +235,31 @@ void Make_Equal_Tri(float cx, float cy,float side){
 // the function that defines that shaped to be displays
 void Create_Shapes(void){
 
-	Make_Square(0.0,-0.5,1.0,1);
-	Make_Square(0.0,-0.5,.75,0);
-	Make_Square(0.0,-0.5,.5,1);
-	Make_Square(0.0,-0.5,.25,0);
-	Make_Square(0.0,-0.5,.123,1);
-	Make_Ellipse(-0.5,0.5,2.0,1.0,.01,0);
-	Make_Ellipse(0.5,0.5,1.0,1.0,.05,1);
-	Make_Equal_Tri(0.0,0.5,.5);
+	//Make_Square(0.0,-0.5,1.0,1);
+	//Make_Square(0.0,-0.5,.75,0);
+	//Make_Square(0.0,-0.5,.5,1);
+	//Make_Square(0.0,-0.5,.25,0);
+	//Make_Square(0.0,-0.5,.123,1);
+	
+	Make_Poly(-0.5,0.5,2.0,1.0,.01,0.0,360,RED,SHADE_CENTER);
+	Make_Poly(0.5,0.5,1.0,1.0,.05,0.0,360,RED_SHADED,SHADE_OFF_CENTER);
+	Make_Poly(0.0,0.5,1.0,1.0,.05,90.0,3,MULTI_COLORED,SHADE_VERTEXS);
+	float center_to_vertex_length = sqrt(pow(.5,2)+pow(.5,2));
+	int color;
+	for(int i = 0 ; i <= 4;i++){
+		
+		
+		if (i%2){
+			color=BLACK;
+		
+		} else {
+					color=WHITE;
+		}
+		Make_Poly(0.0,-0.5,1.0,1.0,center_to_vertex_length*pow(2.0,-1.0*i),45.0,4,color,SHADE_CENTER);
+	
+	}
+//	Make_Equal_Tri(0.0,0.5,.5);
+	
 }
 
 
@@ -213,16 +273,11 @@ init( void )
 	
 	load_data(ver_pointer,shape_pointer);
 
-
 	Vertex_Array_Object();
     
-
 	Initialize_Buffer_Object();
 	
-
 	Load_Shaders();
-
-	
     
 }
 
