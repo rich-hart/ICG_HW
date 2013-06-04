@@ -182,17 +182,29 @@ void Make_Equal_Tri(float cx, float cy,float side){
 	vec2 center=vec2(cx,cy);
 	
 	float hieght = sqrt(pow(side,2.0) - pow(side/2.0,2.0));
-	vect_buffer[0] = vec2( cx-side/2.0, cy -hieght/2.0);
-	vect_buffer[1] =vec2( cx+side-side/2.0, cy -hieght/2.0);
-	vect_buffer[2]  = vec2( cx+side/2.0-side/2.0, cy+ hieght-hieght/2.0);
+	vec2 A = vec2( cx-side/2.0, cy -hieght/2.0);
+	vec2 B =vec2( cx+side-side/2.0, cy -hieght/2.0);
+	vec2 C   = vec2( cx+side/2.0-side/2.0, cy+ hieght-hieght/2.0);
 
-	
+	load_triangle(A,B,C);
+	//load_color(0.0,1.0,0.0,1.0);
+//	load_color(cx,cy,side,.001);
+	colors[color_index]=vec4(1.0,0.0,0.0,1.0);
+		color_index++;	
+		
+		colors[color_index]=vec4(0.0,1.0,0.0,1.0);
+			color_index++;
+			
+				colors[color_index]=vec4(0.0,0.0,1.0,1.0);
+					color_index++;
+	/*
 	for(int i=0; i<=vect_total;i++){
 		temp1=vect_buffer[i%vect_total];
 		temp2=vect_buffer[(i+1)%vect_total];
 		load_triangle(temp1,center,temp2);
 		load_color(1.0,0.0,0.0,1.0);
 	}
+	*/
 	
 }
 
