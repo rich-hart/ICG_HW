@@ -31,6 +31,7 @@ vec2 shape_buffer[SHAPE_BUFFER_SIZE];
 vec2 *shape_pointer;
 
 int index = 0;
+int color_index=0;
 		/*
 		float x_offest=1.0;
 		float y_offest=-1.0;
@@ -71,21 +72,33 @@ int index = 0;
 void Create_Shapes(void);
 void load_data(vec2 *ver_pointer,vec2 *shape_pointer);
 void load_triangle(vec2 A, vec2 B, vec2 C);
-void Make_Square(float x, float y, float side);
+void Make_Square(float x, float y, float side,int type);
 void Make_Equal_Tri(float cx, float cy,float side);
 float Degre_To_Rads(float degree);
+void load_color(float r, float g, float b, float a);
 void load_triangle(vec2 A, vec2 B, vec2 C){
 
 	vec2 temp[3]= {
 A,B,C
     };
 	
-	for(int i=0 ;i<3;i++){
-		shape_buffer[index+i]=temp[i];
-		colors[index+i]=vec4( 1.0, 1.0, 1.0, 1.0 );
-	}
-	index=index+3;
 
+	shape_buffer[index]=A;
+	index++;
+	shape_buffer[index]=B;
+	index++;
+	shape_buffer[index]=C;
+	index++;
+	
+	
+	
+}
+
+void load_color(float r, float g, float b, float a){
+	for(int i=0;i<3;i++){
+	colors[color_index]=vec4(r,g,b,a);
+	color_index++;
+	}
 	
 }
 
@@ -98,8 +111,8 @@ void load_data(vec2 *ver_pointer,vec2 *shape_pointer){
 		shape_pointer++;
 	}
 }
-void Make_Ellipse(float a, float b, float r);
-void Make_Square(float x, float y, float side){
+void Make_Ellipse(float a, float b, float r,int type);
+void Make_Square(float x, float y, float side,int type){
 	int vect_total=4;
 	vec2 vect_buffer[vect_total];
 	vec2 temp1;
@@ -114,6 +127,11 @@ void Make_Square(float x, float y, float side){
 		temp1=vect_buffer[i%vect_total];
 		temp2=vect_buffer[(i+1)%vect_total];
 		load_triangle(temp1,center,temp2);
+		if(type){
+			load_color(1.0,1.0,1.0,1.0);
+		}else{
+			load_color(0.0,0.0,0.0,1.0);
+		}
 	}
 	
 }
@@ -124,7 +142,7 @@ float Degre_To_Rads(float degree){
 	
 }
 
-void Make_Ellipse(float cx, float cy, float a, float b, float r){
+void Make_Ellipse(float cx, float cy, float a, float b, float r,int type){
 	
 	int vect_total=360;
 	vec2 vect_buffer[vect_total];
@@ -143,7 +161,14 @@ void Make_Ellipse(float cx, float cy, float a, float b, float r){
 	for(int i=0; i<=vect_total;i++){
 		temp1=vect_buffer[i%vect_total];
 		temp2=vect_buffer[(i+1)%vect_total];
-		load_triangle(temp1,center,temp2);
+		if(type){
+			vec2 off_center=vec2(sqrt(r)*a+cx,cy);
+		load_triangle(temp1,off_center,temp2);
+		load_color(float(i)/float(vect_total),0.0,0.0,1.0);
+		} else{
+				load_triangle(temp1,center,temp2);
+				load_color(1.0,0.0,0.0,1.0);
+		}
 	}
 	
 }
@@ -166,6 +191,7 @@ void Make_Equal_Tri(float cx, float cy,float side){
 		temp1=vect_buffer[i%vect_total];
 		temp2=vect_buffer[(i+1)%vect_total];
 		load_triangle(temp1,center,temp2);
+		load_color(1.0,0.0,0.0,1.0);
 	}
 	
 }
@@ -174,9 +200,12 @@ void Create_Shapes(void){
 	//load_triangle(vec2( 0.0, 0.0 ), vec2( -1.0, 0.0 ), vec2( 0.0, -1.0 ));
 	//load_triangle(vec2(0.0,0.0),vec2(1.0,0.0),vec2(0.0,1.0));
 	
-	Make_Square(0.0,-0.5,.75);
-	Make_Ellipse(-0.5,0.5,2.0,1.0,.01);
-	Make_Ellipse(0.5,0.5,1.0,1.0,.05);
+	Make_Square(0.0,-0.5,.75,1);
+	Make_Square(0.0,-0.5,.5,0);
+	Make_Square(0.0,-0.5,.25,1);
+	Make_Square(0.0,-0.5,.123,0);
+	Make_Ellipse(-0.5,0.5,2.0,1.0,.01,0);
+	Make_Ellipse(0.5,0.5,1.0,1.0,.05,1);
 	Make_Equal_Tri(0.0,0.5,.5);
 }
 
