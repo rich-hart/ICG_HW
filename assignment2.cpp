@@ -176,13 +176,10 @@ void Make_Poly(float cx, float cy, float a, float b, float r,float rotate, int s
 	for(int i=0; i<=sides;i++){
 		temp1=vect_buffer[i%sides];
 		temp2=vect_buffer[(i+1)%sides];
-		
-			switch (shade_location){
-				case SHADE_CENTER:
+		switch (shade_location){
+			case SHADE_CENTER:
 				temp3=center;
-			
-		
-				break;
+			break;
 		case SHADE_OFF_CENTER:
 				
 		temp3=off_center;
@@ -256,7 +253,7 @@ void Create_Shapes(void){
 	Make_Poly(0.0,0.5,1.0,1.0,.05,90.0,3,MULTI_COLORED,SHADE_VERTEXS);
 	float center_to_vertex_length = sqrt(pow(.5,2)+pow(.5,2));
 	int color;
-	for(int i = 0 ; i <= 4;i++){
+	for(int i = 0 ; i <= 8;i++){
 		
 		
 		if (i%2){
@@ -268,7 +265,7 @@ void Create_Shapes(void){
 		Make_Poly(0.0,-0.5,1.0,1.0,center_to_vertex_length*pow(2.0,-1.0*i),45.0,4,color,SHADE_CENTER);
 	
 	}
-//	Make_Equal_Tri(0.0,0.5,.5);
+
 	
 }
 
