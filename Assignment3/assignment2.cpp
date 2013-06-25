@@ -360,15 +360,13 @@ void Load_Shaders(void){
 	// Initialize the vertex position attribute from the vertex shader
 	GLuint loc = glGetAttribLocation( program, "vPosition" );
 	glEnableVertexAttribArray( loc );
-	glVertexAttribPointer( loc, 2, GL_FLOAT, GL_FALSE, 0,
-		BUFFER_OFFSET(0) );
+	glVertexAttribPointer( loc, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0) );
 
 
 	//Initialize the vertex position attribute from the vertex shader
 	GLuint loc2 = glGetAttribLocation( program, "vColor" );
 	glEnableVertexAttribArray( loc2 );
-	glVertexAttribPointer( loc2, 4, GL_FLOAT, GL_FALSE, 0,
-		BUFFER_OFFSET(sizeof(vertices)) );
+	glVertexAttribPointer( loc2, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(sizeof(vertices)) );
 
 	glClearColor( 0.0, 0.0, 0.0, 1.0 ); // black background
 }
