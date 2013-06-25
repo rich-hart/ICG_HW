@@ -289,11 +289,28 @@ void Create_Shapes(void){
 
 
 void
-	init( void )
+	init_1( void )
 {
 	ver_pointer=vertices;
 
-	Create_Shapes();
+	Make_Square();
+
+	load_data(ver_pointer,shape_pointer);
+
+	Vertex_Array_Object();
+
+	Initialize_Buffer_Object();
+
+	Load_Shaders();
+
+}
+
+void
+	init_2( void )
+{
+	ver_pointer=vertices;
+
+	Make_Square();
 
 	load_data(ver_pointer,shape_pointer);
 
@@ -337,12 +354,27 @@ int
 	glutInitDisplayMode( GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
 	glutInitWindowSize( 512, 512 );
 
-	glutCreateWindow( "Assignment 3" );
+	//main window
+	uint main_id = glutCreateWindow( "Assignment 3: Main window" );
+	glutSetWindow(main_id);
 	glewExperimental=GL_TRUE; 
 	glewInit();    
-	init();
+	init_1();
 
 	glutDisplayFunc( display );
+	
+	glutInitDisplayMode( GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
+	glutInitWindowSize( 512, 512 );
+
+	//subwindow
+	uint id = glutCreateWindow( "Assignment 3: Subwindow" );
+	glutSetWindow(id);
+	glewExperimental=GL_TRUE; 
+	glewInit();    
+	init_1();
+
+	glutDisplayFunc( display );
+	
 	glutKeyboardFunc( keyboard );
 
 	glutMainLoop();
@@ -363,7 +395,7 @@ void Initialize_Buffer_Object(void){
 
 
 
-	// Create and initialize a buffer object
+	// Create and init_1ialize a buffer object
 	GLuint buffer;
 	glGenBuffers( 1, &buffer );
 	glBindBuffer( GL_ARRAY_BUFFER, buffer );
