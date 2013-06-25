@@ -1,6 +1,27 @@
 /*
 Richard Hart
-Assignment 2
+Assignment 3
+
+
+x Enable double buffering.
+x Create a main window with the "black & white" square
+Place an ellipse in a SubWindow of the main window. Set the sub-window's display function to draw the background a different color.
+Create a menu on the sub window only that allows the user to change the subwindow's background color.
+Draw a circle and triangle, which have the same color, in a separate window entitled “window 2”. Allow the user to change the color of these objects by typing a key, 'r' - red, 'g' - green, 'b' - blue, 'y' - yellow, 'o' - orange, 'p' - purple, 'w' - white.
+Animate the shapes using the idle function as follows:
+Make the squares rotate counter clockwise.
+Make the triangle rotate clockwise.
+Make the circle increase in size and then decrease in size as though it was “breathing”.
+Create a menu for the main window that is right-click activated with the following layout:
+Stop Animation
+Start Animation
+Square Colors ->
+     White
+     Red
+     Green
+Where each button does the indicated action.
+(Extra Credit) Alter the main window so that if a user clicks on it with the left click button, a new circle with a random color appears where s/he clicked.
+
 */
 
 #include "include/Angel.h"
@@ -258,9 +279,9 @@ void Make_Square(void){
 // the function that defines that shaped to be displays
 void Create_Shapes(void){
 
-	Make_Ellipse();
-	Make_Circle();
-	Make_Equil_Tri();
+	//Make_Ellipse();
+	//Make_Circle();
+	//Make_Equil_Tri();
 	Make_Square();
 	
 }
@@ -291,7 +312,7 @@ void
 {
 	glClear( GL_COLOR_BUFFER_BIT );     // clear the window
 	glDrawArrays( GL_TRIANGLES, 0, NumPoints );    // draw the points
-	glFlush();
+	glutSwapBuffers();
 }
 
 //----------------------------------------------------------------------------
@@ -313,10 +334,10 @@ int
 {
 	puts("Testing Textmate Editing");
 	glutInit( &argc, argv );
-	glutInitDisplayMode( GLUT_RGBA );
+	glutInitDisplayMode( GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
 	glutInitWindowSize( 512, 512 );
 
-	glutCreateWindow( "Assignment 2" );
+	glutCreateWindow( "Assignment 3" );
 	glewExperimental=GL_TRUE; 
 	glewInit();    
 	init();
