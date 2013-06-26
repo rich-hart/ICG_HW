@@ -41,11 +41,6 @@ Where each button does the indicated action.
 
 //Angel Code:
 
-vec2 vertices[BUFFER_SIZE] ;// Specifiy the vertices for a triangle
-vec2 *ver_pointer;
-
-int NumPoints = 0;
-
 void Vertex_Array_Object(void);
 void Initialize_Buffer_Object(void);
 void Load_Shaders(void);
@@ -62,9 +57,9 @@ void Load_Shaders(void);
 //arrays to hold shape and color data of objects
 vec2 shape_buffer[SHAPE_BUFFER_SIZE];
 vec2 *shape_pointer;
+int number_of_vertices = 0;
 
-int index = 0;
-vec4 colors[BUFFER_SIZE] ;
+vec4 colors[BUFFER_SIZE];
 int color_index=0;
 
 
@@ -73,43 +68,33 @@ void load_data(vec2 *ver_pointer,vec2 *shape_pointer);
 
 //functions that load data needed to generate an object into my buffer
 void load_triangle(vec2 A, vec2 B, vec2 C);
-
 void load_color(float r, float g, float b, float a);
-
 void load_multi_color(void);
 
 //functions used to generate shapes
-
 float Degre_To_Rads(float degree);
-
 void Make_Poly(float cx, float cy, float a, float b, float r,float rotate, int sides,int color, int shade_location);
-
 void Make_Square(void);
 void Make_Equil_Tri(void);
 void Make_Circle(void);
 void Make_Ellipse(void);
 
-void Create_Shapes(void);
-
-
-
 //load 3 non co-plainer points into the shape buffer render a triangle.
 void load_triangle(vec2 A, vec2 B, vec2 C){
 
-	shape_buffer[index]=A;
-	index++;
+	shape_buffer[number_of_vertices]=A;
+	number_of_vertices++;
 	
-	shape_buffer[index]=B;
-	index++;
+	shape_buffer[number_of_vertices]=B;
+	number_of_vertices++;
 	
-	shape_buffer[index]=C;
-	index++;
+	shape_buffer[number_of_vertices]=C;
+	number_of_vertices++;
 
 }
 
 // defines the color of a triangle that was just added into the shape buffer. 
 //must be called after load_triangle. 
-
 void load_color(float r, float g, float b, float a){
 	for(int i=0;i<3;i++){
 		colors[color_index]=vec4(r,g,b,a);
@@ -120,7 +105,6 @@ void load_color(float r, float g, float b, float a){
 
 // defines a multicolored shading for a triangle that was just added into the shape buffer. 
 //must be called after load_triangle.
-
 void load_multi_color(void){
 	
 	colors[color_index]=vec4(1.0,0.0,0.0,1.0);
@@ -137,18 +121,19 @@ void load_multi_color(void){
 // loads data from my buffer into angels vertex buffer
 void load_data(vec2 *ver_pointer,vec2 *shape_pointer){
 	
-	NumPoints=index;
-	shape_pointer=shape_buffer;
+	NumPoints=number_of_vertices;
+	
 	
 	for(int i=0;i<NumPoints;i++){
 		
-		*ver_pointer= *shape_pointer;
+		*ver_pointer = *shape_pointer;
 		ver_pointer++;
 		shape_pointer++;
 		
 	}
 }
 
+//Basic conversion function
 float Degre_To_Rads(float degree){
 	
 	return (degree / 180.0  )*M_PI;
@@ -156,8 +141,6 @@ float Degre_To_Rads(float degree){
 }
 
 //creates an polygon who's vertexes lie on  the ellipse equation (x/a)^2+(y/b)^2=r^2
-
-
 void Make_Poly(float cx, float cy, float a, float b, float r,float rotate, int sides,int color, int shade_location){
 
 	vec2 vect_buffer[sides];
@@ -244,21 +227,24 @@ void Make_Ellipse(void){
 		Make_Poly(-0.5,0.5,2.0,1.0,.01,0.0,360,RED,SHADE_CENTER);
 	
 }
+
 // create an ellispe by making a polygon of many sides..
 void Make_Circle(void){
 	
 		Make_Poly(0.5,0.5,1.0,1.0,.05,0.0,360,RED_SHADED,SHADE_OFF_CENTER);
 	
 }
+
 // make an equalateral tri
 void Make_Equil_Tri(void){
 	
 		Make_Poly(0.0,0.5,1.0,1.0,.05,90.0,3,MULTI_COLORED,SHADE_VERTEXS);
 	
 }
+
 //create a black and white square pattern. 
 void Make_Square(void){
-	
+
 	float center_to_vertex_length = sqrt(pow(.5,2)+pow(.5,2));
 	int color;
 	for(int i = 0 ; i <= 8;i++){
@@ -273,107 +259,30 @@ void Make_Square(void){
 		Make_Poly(0.0,-0.5,1.0,1.0,center_to_vertex_length*pow(2.0,-1.0*i),45.0,4,color,SHADE_CENTER);
 
 	}
-	
+
 }
 
-// the function that defines that shaped to be displays
-void Create_Shapes(void){
-
-	//Make_Ellipse();
-	//Make_Circle();
-	//Make_Equil_Tri();
+//Initialize creation of vertexs to draw shapes.
+void init(vec2 *shape_pointer){
+	int color_data_size = sizeof(vec4)*BUFFER_SIZE;
+	int vector_data_size = sizeof(vec2)*BUFFER_SIZE;
+	
 	Make_Square();
-	
-}
-
-
-
-void
-	init( void )
-{
-	ver_pointer=vertices;
-
-	Create_Shapes();
-
 	load_data(ver_pointer,shape_pointer);
 
-	Vertex_Array_Object();
-
-	Initialize_Buffer_Object();
-
-	Load_Shaders();
-
-}
-
-//----------------------------------------------------------------------------
-
-void
-	display( void )
-{
-	glClear( GL_COLOR_BUFFER_BIT );     // clear the window
-	glDrawArrays( GL_TRIANGLES, 0, NumPoints );    // draw the points
-	glutSwapBuffers();
-}
-
-//----------------------------------------------------------------------------
-
-void
-	keyboard( unsigned char key, int x, int y )
-{
-	switch ( key ) {
-		case 033:
-		exit( EXIT_SUCCESS );
-		break;
-	}
-}
-
-//----------------------------------------------------------------------------
-
-int
-	main( int argc, char **argv )
-{
-	puts("Testing Textmate Editing");
-	glutInit( &argc, argv );
-	glutInitDisplayMode( GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
-	glutInitWindowSize( 512, 512 );
-
-	glutCreateWindow( "Assignment 3" );
-	glewExperimental=GL_TRUE; 
-	glewInit();    
-	init();
-
-	glutDisplayFunc( display );
-	glutKeyboardFunc( keyboard );
-
-	glutMainLoop();
-
-	return 0;
-}
-
-
-
-void Vertex_Array_Object(void){
 	// Create a vertex array object
 	GLuint vao[1];
 	glGenVertexArrays( 1, vao );
 	glBindVertexArray( vao[0] );
-}
-
-void Initialize_Buffer_Object(void){
-
-
 
 	// Create and initialize a buffer object
 	GLuint buffer;
 	glGenBuffers( 1, &buffer );
 	glBindBuffer( GL_ARRAY_BUFFER, buffer );
-	glBufferData( GL_ARRAY_BUFFER, sizeof(vertices)+sizeof(colors), NULL, GL_STATIC_DRAW );
-	glBufferSubData( GL_ARRAY_BUFFER,0, sizeof(vertices), vertices );
-	glBufferSubData( GL_ARRAY_BUFFER,sizeof(vertices), sizeof(colors), colors );
+	glBufferData( GL_ARRAY_BUFFER, vector_data_size+color_data_size, NULL, GL_STATIC_DRAW );
+	glBufferSubData( GL_ARRAY_BUFFER,0, vector_data_size, shape_buffer );
+	glBufferSubData( GL_ARRAY_BUFFER,vector_data_size, color_data_size, colors );
 
-}
-
-void Load_Shaders(void){
 	// Load shaders and use the resulting shader program
 	GLuint program = InitShader( "vshader21.glsl", "fshader21.glsl" );
 	glUseProgram( program );
@@ -387,8 +296,52 @@ void Load_Shaders(void){
 	//Initialize the vertex position attribute from the vertex shader
 	GLuint loc2 = glGetAttribLocation( program, "vColor" );
 	glEnableVertexAttribArray( loc2 );
-	glVertexAttribPointer( loc2, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(sizeof(vertices)) );
+	glVertexAttribPointer( loc2, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(vector_data_size) );
 
 	glClearColor( 0.0, 0.0, 0.0, 1.0 ); // black background
+
 }
 
+//----------------------------------------------------------------------------
+
+void display( void ){
+	glClear( GL_COLOR_BUFFER_BIT );     // clear the window
+	glDrawArrays( GL_TRIANGLES, 0, number_of_vertices );    // draw the points
+	glutSwapBuffers();
+}
+
+//----------------------------------------------------------------------------
+
+void keyboard( unsigned char key, int x, int y ){
+	switch ( key ) {
+		case 033:
+		exit( EXIT_SUCCESS );
+		break;
+	}
+}
+
+//----------------------------------------------------------------------------
+
+int main( int argc, char **argv ) {
+	puts("Testing Textmate Editing");
+	glutInit( &argc, argv );
+	glutInitDisplayMode( GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
+	glutInitWindowSize( 512, 512 );
+
+	glutCreateWindow( "Assignment 3" );
+	glewExperimental=GL_TRUE; 
+	glewInit();    
+	
+	vec2 vertices[BUFFER_SIZE];// Specifiy the vertices for a triangle
+	vec2 *ver_pointer;
+	ver_pointer=vertices;
+	shape_pointer=shape_buffer;
+	init(shape_pointer);
+
+	glutDisplayFunc( display );
+	glutKeyboardFunc( keyboard );
+
+	glutMainLoop();
+
+	return 0;
+}
