@@ -64,7 +64,8 @@ vec2 shape_buffer[SHAPE_BUFFER_SIZE];
 vec2 *shape_pointer;
 
 int index = 0;
-vec4 colors[BUFFER_SIZE] ;
+
+vec4 colors[BUFFER_SIZE];
 int color_index=0;
 
 
@@ -85,11 +86,12 @@ float Degre_To_Rads(float degree);
 void Make_Poly(float cx, float cy, float a, float b, float r,float rotate, int sides,int color, int shade_location);
 
 void Make_Square(void);
-void Make_Equil_Tri(void);
-void Make_Circle(void);
-void Make_Ellipse(void);
 
-void Create_Shapes(void);
+void Make_Equil_Tri(void);
+
+void Make_Circle(void);
+
+void Make_Ellipse(void);
 
 
 
@@ -276,15 +278,6 @@ void Make_Square(void){
 	
 }
 
-// the function that defines that shaped to be displays
-void Create_Shapes(void){
-
-	//Make_Ellipse();
-	//Make_Circle();
-	//Make_Equil_Tri();
-	Make_Square();
-	
-}
 
 
 
@@ -292,7 +285,7 @@ void
 	init_1( void )
 {
 	ver_pointer=vertices;
-
+	
 	Make_Square();
 
 	load_data(ver_pointer,shape_pointer);
@@ -310,7 +303,7 @@ void
 {
 	ver_pointer=vertices;
 
-	Make_Square();
+	Make_Ellipse();
 
 	load_data(ver_pointer,shape_pointer);
 
@@ -367,11 +360,11 @@ int
 	glutInitWindowSize( 512, 512 );
 
 	//subwindow
-	uint id = glutCreateWindow( "Assignment 3: Subwindow" );
-	glutSetWindow(id);
+	uint sub_id = glutCreateWindow( "Assignment 3: Subwindow" );
+	glutSetWindow(sub_id);
 	glewExperimental=GL_TRUE; 
 	glewInit();    
-	init_1();
+	init_2();
 
 	glutDisplayFunc( display );
 	
@@ -389,6 +382,7 @@ void Vertex_Array_Object(void){
 	GLuint vao[1];
 	glGenVertexArrays( 1, vao );
 	glBindVertexArray( vao[0] );
+	
 }
 
 void Initialize_Buffer_Object(void){
