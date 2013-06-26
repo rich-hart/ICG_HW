@@ -121,10 +121,10 @@ void load_multi_color(void){
 // loads data from my buffer into angels vertex buffer
 void load_data(vec2 *ver_pointer,vec2 *shape_pointer){
 	
-	NumPoints=number_of_vertices;
+	//NumPoints=number_of_vertices;
 	
 	
-	for(int i=0;i<NumPoints;i++){
+	for(int i=0;i<number_of_vertices;i++){
 		
 		*ver_pointer = *shape_pointer;
 		ver_pointer++;
@@ -268,7 +268,7 @@ void init(vec2 *shape_pointer){
 	int vector_data_size = sizeof(vec2)*BUFFER_SIZE;
 	
 	Make_Square();
-	load_data(ver_pointer,shape_pointer);
+	//load_data(ver_pointer,shape_pointer);
 
 	// Create a vertex array object
 	GLuint vao[1];
