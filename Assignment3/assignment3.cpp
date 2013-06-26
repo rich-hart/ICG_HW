@@ -317,9 +317,7 @@ void
 
 //----------------------------------------------------------------------------
 
-void
-	display( void )
-{
+void display( void ){
 	glClear( GL_COLOR_BUFFER_BIT );     // clear the window
 	glDrawArrays( GL_TRIANGLES, 0, NumPoints );    // draw the points
 	glutSwapBuffers();
@@ -327,9 +325,7 @@ void
 
 //----------------------------------------------------------------------------
 
-void
-	keyboard( unsigned char key, int x, int y )
-{
+void keyboard( unsigned char key, int x, int y ){
 	switch ( key ) {
 		case 033:
 		exit( EXIT_SUCCESS );
@@ -357,6 +353,7 @@ int
 	glutDisplayFunc( display );
 	
 	glutInitDisplayMode( GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
+	
 	glutInitWindowSize( 512, 512 );
 
 	//subwindow
